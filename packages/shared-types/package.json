@@ -1,5 +1,5 @@
 {
-  "name": "@the-cricketer/game-core",
+  "name": "@the-cricketer/shared-types",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -17,5 +17,7 @@
     "dev": "tsup src/index.ts --format esm --watch",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {}
+  "dependencies": {
+    "zod": "^4.3.0"
+  }
 }

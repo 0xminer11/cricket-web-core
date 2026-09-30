@@ -1,0 +1,120 @@
+:root {
+  color-scheme: dark;
+  --color-bg: #101b22;
+  --color-surface: #1b2b35;
+  --color-text: #f0f6f8;
+  --color-muted: #bbced6;
+  --color-accent: #9ce3bd;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --radius: 0.75rem;
+  --font-body: system-ui, sans-serif;
+  --font-small: 0.875rem;
+  --font-heading: clamp(2rem, 5vw, 3.5rem);
+  --z-nav: 10;
+  --z-modal: 100;
+  --breakpoint-tablet: 48rem;
+  --breakpoint-desktop: 75rem;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.25rem;
+}
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+header,
+main,
+footer {
+  max-width: 72rem;
+  margin: auto;
+  padding: var(--space-4);
+}
+header {
+  border-bottom: 1px solid #49616e;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+h1 {
+  font-size: var(--font-heading);
+  line-height: 1.1;
+}
+h2 {
+  font-size: 1.35rem;
+}
+p {
+  max-width: 65ch;
+}
+.card {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid #49616e;
+  border-radius: var(--radius);
+}
+.grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  margin-block: var(--space-5);
+}
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  font-size: var(--font-small);
+}
+.button,
+.input {
+  font: inherit;
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+.button {
+  cursor: pointer;
+}
+.skip-link {
+  position: absolute;
+  top: -8rem;
+  left: 1rem;
+}
+.skip-link:focus {
+  top: 1rem;
+  z-index: var(--z-nav);
+  background: var(--color-bg);
+  padding: 1rem;
+}
+.admin-layout {
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 48rem) {
+  .admin-layout {
+    grid-template-columns: 12rem 1fr;
+  }
+  .admin-layout nav {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,1 @@
+Player feature boundary reserved for its implementation module. Domain rules stay in game-core. Phaser/Three.js must load dynamically inside gameplay or character routes, never the root layout. No mock authoritative state is stored here.

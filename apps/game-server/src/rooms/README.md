@@ -1,0 +1,1 @@
+Register future CricketMatchRoom here. No realtime framework was selected in Module 0; the HTTP bootstrap reserves this boundary without inventing multiplayer behavior. Colyseus can attach its transport to the underlying HTTP server; register its close hook before listening.

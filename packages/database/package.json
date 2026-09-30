@@ -1,0 +1,42 @@
+{
+  "name": "@the-cricketer/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./testing": {
+      "types": "./dist/testing/index.d.ts",
+      "import": "./dist/testing/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts src/testing/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx --env-file-if-exists=../../.env src/migrate.ts",
+    "db:studio": "drizzle-kit studio",
+    "db:check": "tsx --env-file-if-exists=../../.env src/check.ts",
+    "db:reset": "tsx --env-file-if-exists=../../.env src/reset.ts",
+    "db:seed": "tsx --env-file-if-exists=../../.env src/seed/run.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.0",
+    "pg": "^8.18.0",
+    "redis": "^5.11.0",
+    "@the-cricketer/config": "workspace:*",
+    "@the-cricketer/game-core": "workspace:*",
+    "@the-cricketer/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.0",
+    "@types/pg": "^8.16.0"
+  }
+}

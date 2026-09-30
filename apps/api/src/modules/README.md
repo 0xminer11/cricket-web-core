@@ -1,0 +1,1 @@
+Health and version are registered by server-kit. Future player, career, inventory and match modules use controller → service → game-core → explicit persistence interface. No business flows are implemented in Module 1.
