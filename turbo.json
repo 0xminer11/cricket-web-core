@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [".env", "tsconfig.base.json"],
+  "globalEnv": [
+    "NODE_ENV",
+    "APP_ENV",
+    "APP_VERSION",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_GAME_SERVER_URL",
+    "WEB_PORT",
+    "ADMIN_PORT",
+    "API_PORT",
+    "GAME_SERVER_PORT",
+    "CORS_ORIGINS",
+    "LOG_LEVEL",
+    "DATABASE_URL",
+    "REDIS_URL",
+    "COMMIT_SHA",
+    "BUILD_TIME",
+    "DATABASE_POOL_MAX",
+    "DATABASE_IDLE_TIMEOUT_MS",
+    "DATABASE_CONNECTION_TIMEOUT_MS",
+    "DATABASE_STATEMENT_TIMEOUT_MS",
+    "DATABASE_SLOW_QUERY_MS",
+    "TEST_DATABASE_URL"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

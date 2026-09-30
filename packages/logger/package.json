@@ -1,5 +1,5 @@
 {
-  "name": "@the-cricketer/game-core",
+  "name": "@the-cricketer/logger",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -17,5 +17,10 @@
     "dev": "tsup src/index.ts --format esm --watch",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {}
+  "dependencies": {
+    "pino": "^10.3.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.1.0"
+  }
 }

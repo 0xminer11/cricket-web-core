@@ -1,5 +1,5 @@
 {
-  "name": "@the-cricketer/game-core",
+  "name": "@the-cricketer/server-kit",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -17,5 +17,13 @@
     "dev": "tsup src/index.ts --format esm --watch",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {}
+  "dependencies": {
+    "fastify": "5.12.5",
+    "@fastify/cors": "^11.2.0",
+    "@fastify/helmet": "^13.0.0",
+    "@fastify/rate-limit": "^10.3.0",
+    "@the-cricketer/config": "workspace:*",
+    "@the-cricketer/logger": "workspace:*",
+    "@the-cricketer/shared-types": "workspace:*"
+  }
 }

@@ -1,0 +1,48 @@
+name: Quality gates
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: cp .env.example .env
+      - run: docker compose up -d --wait
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm typecheck
+      # The compose PostgreSQL starts empty: this is the mandatory fresh-database migration test.
+      - name: Apply migrations to an empty PostgreSQL
+        run: pnpm db:migrate
+      - name: 'Seed reference and development data (run twice; seeds are idempotent)'
+        run: pnpm db:seed && pnpm db:seed
+      - name: Verify committed migrations match the schema (no drift)
+        run: pnpm db:drift
+      - name: 'Unit + database integration tests (isolated cricketer_test_* databases)'
+        run: pnpm test:integration
+      - run: pnpm db:check
+      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+      - if: always()
+        run: docker compose down
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-results
+          path: test-results/
+          if-no-files-found: ignore

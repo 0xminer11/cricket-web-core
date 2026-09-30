@@ -1,0 +1,25 @@
+{
+  "name": "@the-cricketer/admin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../infrastructure/scripts/next.mjs admin dev",
+    "build": "node ../../infrastructure/scripts/next.mjs admin build",
+    "start": "node ../../infrastructure/scripts/next.mjs admin start",
+    "typecheck": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "16.3.7",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@the-cricketer/config": "workspace:*",
+    "@the-cricketer/ui": "workspace:*",
+    "@the-cricketer/shared-types": "workspace:*",
+    "@the-cricketer/game-core": "workspace:*"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.2.0",
+    "@tailwindcss/postcss": "^4.2.0"
+  }
+}

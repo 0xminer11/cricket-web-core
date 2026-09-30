@@ -1,0 +1,89 @@
+import type { AssetId } from '../types/common.types';
+/** Exact manifest contract from Module 0, chapter 20. */
+export interface AssetManifestEntry {
+  readonly assetId: AssetId;
+  readonly category:
+    | 'character'
+    | 'animation'
+    | 'kit'
+    | 'bat'
+    | 'stadium'
+    | 'ui'
+    | 'audio'
+    | 'vfx';
+  readonly path: string;
+  readonly version: string;
+  readonly sizeBytes: number;
+  readonly platforms: readonly ('web' | 'android' | 'ios')[];
+  readonly compression:
+    | 'none'
+    | 'gzip'
+    | 'brotli'
+    | 'texture-webp'
+    | 'audio-opus'
+    | 'platform-native';
+  readonly dependencies: readonly AssetId[];
+  readonly checksumSha256?: string;
+}
+export const ASSET_MANIFEST: readonly AssetManifestEntry[] = [];
+export function getAssetDefinition(
+  id: AssetId,
+  manifest = ASSET_MANIFEST,
+): AssetManifestEntry | undefined {
+  return manifest.find((a) => a.assetId === id);
+}
+export function getAssetUrl(
+  id: AssetId,
+  manifest = ASSET_MANIFEST,
+): string | undefined {
+  return getAssetDefinition(id, manifest)?.path;
+}
+export function validateAssetManifest(
+  manifest = ASSET_MANIFEST,
+): readonly string[] {
+  const errors: string[] = [];
+  const ids = new Set<string>();
+  for (const entry of manifest) {
+    if (ids.has(entry.assetId))
+      errors.push(`Duplicate asset: ${entry.assetId}`);
+    ids.add(entry.assetId);
+    if (
+      !entry.assetId.startsWith('asset.') ||
+      !entry.version ||
+      !Number.isSafeInteger(entry.sizeBytes) ||
+      entry.sizeBytes < 0 ||
+      entry.platforms.length === 0
+    )
+      errors.push(`Invalid asset metadata: ${entry.assetId}`);
+    if (
+      !entry.path.startsWith('/game-assets/') ||
+      entry.path.includes('..') ||
+      entry.path.includes('\\') ||
+      entry.path.includes('%')
+    )
+      errors.push(`Unsafe asset path: ${entry.assetId}`);
+    if (entry.checksumSha256 && !/^[a-f0-9]{64}$/i.test(entry.checksumSha256))
+      errors.push(`Invalid checksum: ${entry.assetId}`);
+  }
+  for (const entry of manifest)
+    for (const dependency of entry.dependencies)
+      if (!ids.has(dependency))
+        errors.push(`Missing asset dependency: ${dependency}`);
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const visit = (id: AssetId): void => {
+    if (visiting.has(id)) {
+      errors.push(`Cyclic asset dependency: ${id}`);
+      return;
+    }
+    if (visited.has(id)) return;
+    visiting.add(id);
+    for (const dependency of getAssetDefinition(id, manifest)?.dependencies ??
+      [])
+      visit(dependency);
+    visiting.delete(id);
+    visited.add(id);
+  };
+  for (const entry of manifest) visit(entry.assetId);
+  return errors;
+}
