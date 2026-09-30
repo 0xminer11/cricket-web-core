@@ -1,0 +1,8 @@
+import type { TrainingDefinition } from '../types/training.types';
+export const TRAINING_DEFINITIONS: readonly TrainingDefinition[] = [
+  { id: 'training.batting.timing', displayName: 'Timing Drill', category: 'batting', grants: [{ statKey: 'batting.timing', skillXp: 32 }, { statKey: 'batting.footwork', skillXp: 8 }], playerXp: 25, fatigueGain: 8, cost: { currency: 'coins', amount: 60 }, cooldownMatches: 0, prerequisites: [] },
+  { id: 'training.batting.power', displayName: 'Power Hitting', category: 'batting', grants: [{ statKey: 'batting.power', skillXp: 28 }, { statKey: 'physical.strength', skillXp: 12 }], playerXp: 25, fatigueGain: 12, cost: { currency: 'coins', amount: 70 }, cooldownMatches: 0, prerequisites: [] },
+  { id: 'training.bowling.accuracy', displayName: 'Bowling Accuracy', category: 'bowling', grants: [{ statKey: 'bowling.accuracy', skillXp: 30 }, { statKey: 'bowling.control', skillXp: 10 }], playerXp: 25, fatigueGain: 10, cost: { currency: 'coins', amount: 70 }, cooldownMatches: 0, prerequisites: [] },
+  { id: 'training.bowling.variation', displayName: 'Variation Lab', category: 'bowling', grants: [{ statKey: 'bowling.variation', skillXp: 26 }, { statKey: 'bowling.control', skillXp: 10 }], playerXp: 28, fatigueGain: 10, cost: { currency: 'coins', amount: 90 }, cooldownMatches: 0, prerequisites: ['playerLevel>=5'] },
+  { id: 'training.physical.stamina', displayName: 'Conditioning', category: 'physical', grants: [{ statKey: 'physical.stamina', skillXp: 24 }, { statKey: 'physical.recovery', skillXp: 12 }, { statKey: 'physical.fitness', skillXp: 8 }], playerXp: 22, fatigueGain: 14, cost: { currency: 'coins', amount: 60 }, cooldownMatches: 0, prerequisites: [] },
+];
