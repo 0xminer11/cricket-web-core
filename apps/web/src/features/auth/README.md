@@ -1,1 +1,3 @@
-Auth feature boundary reserved for its implementation module. Domain rules stay in game-core. Phaser/Three.js must load dynamically inside gameplay or character routes, never the root layout. No mock authoritative state is stored here.
+Authentication feature (Module 3). Structure: `api/` (the only code that talks to the auth API), `components/` (accessible forms and panels), `hooks/`, `schemas/` (client-side form checks; the server is authoritative), `state/` (minimal auth context: loading | authenticated | unauthenticated | unavailable), `types/`, `utils/`.
+
+The session is an HttpOnly cookie managed by the browser. Nothing in this folder reads, stores or forwards a token, and no storage API is used. A guest account is created only when the player chooses "Continue as Guest". See [docs/auth](../../../../../docs/auth/overview.md). Domain rules stay in game-core; no mock authoritative state is stored here.

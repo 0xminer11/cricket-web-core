@@ -15,6 +15,48 @@
       "when": 1790767643846,
       "tag": "0001_integrity_triggers",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790822661704,
+      "tag": "0002_auth_accounts",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790822671184,
+      "tag": "0003_auth_integrity_triggers",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790826875195,
+      "tag": "0004_player_creation_metadata",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790835989784,
+      "tag": "0005_career_onboarding",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790846811914,
+      "tag": "0006_flashy_sister_grimm",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1790847373348,
+      "tag": "0007_fluffy_retro_girl",
+      "breakpoints": true
     }
   ]
 }

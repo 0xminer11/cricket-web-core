@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import { AuthProvider } from '../features/auth/state/auth-context';
+import { AppNav } from '../features/career/components/app-nav';
+import { HeaderAccount } from '../features/auth/components/header-account';
 import '../styles/globals.css';
 export const metadata = {
   title: 'THE CRICKETER',
@@ -13,12 +16,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <header>
-          <Link href="/">THE CRICKETER</Link>
-          <p>Development Build · Career Cricket Game</p>
-        </header>
-        <main id="main">{children}</main>
-        <footer>Module 1 Infrastructure · Development preview</footer>
+        <AuthProvider>
+          <header>
+            <Link href="/">THE CRICKETER</Link>
+            <p>Development Build · Career Cricket Game</p>
+            <HeaderAccount />
+          </header>
+          <AppNav />
+          <main id="main">{children}</main>
+        </AuthProvider>
+        <footer>Module 7 Training · Development preview</footer>
       </body>
     </html>
   );

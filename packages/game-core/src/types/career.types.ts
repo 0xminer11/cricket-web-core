@@ -1,4 +1,10 @@
-import type { CareerEventId, CareerTierId, CurrencyCode, SponsorId, TeamId } from './common.types';
+import type {
+  CareerEventId,
+  CareerTierId,
+  CurrencyCode,
+  SponsorId,
+  TeamId,
+} from './common.types';
 import type { PlayerRole } from './player.types';
 
 export type CareerEffect =
@@ -22,7 +28,15 @@ export interface CareerEvent {
   readonly eventId: CareerEventId;
   readonly title: string;
   readonly description: string;
-  readonly type: 'coach' | 'media' | 'selection' | 'contract' | 'sponsor' | 'team' | 'rivalry' | 'milestone';
+  readonly type:
+    | 'coach'
+    | 'media'
+    | 'selection'
+    | 'contract'
+    | 'sponsor'
+    | 'team'
+    | 'rivalry'
+    | 'milestone';
   readonly requirements: readonly string[];
   readonly choices: readonly CareerEventChoice[];
   readonly weight: number;
@@ -46,7 +60,13 @@ export interface Contract {
 
 export interface SponsorshipOffer {
   readonly sponsorId: SponsorId;
-  readonly category: 'bat' | 'sportswear' | 'shoes' | 'energy_drink' | 'technology' | 'lifestyle';
+  readonly category:
+    | 'bat'
+    | 'sportswear'
+    | 'shoes'
+    | 'energy_drink'
+    | 'technology'
+    | 'lifestyle';
   readonly minFans: number;
   readonly minProfessionalism: number;
   readonly minTier: CareerTierId;

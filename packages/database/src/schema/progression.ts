@@ -60,3 +60,29 @@ export const playerAchievements = pgTable(
     ),
   ],
 );
+
+/**
+ * One row per (player, onboarding step) once the player has seen or skipped it (Module 6 Career
+ * Home intro). Deliberately separate from player attributes/state: it is UX state, not progression.
+ */
+export const playerOnboarding = pgTable(
+  'player_onboarding',
+  {
+    playerId: uuid('player_id')
+      .notNull()
+      .references(() => playerProfiles.id, { onDelete: 'cascade' }),
+    step: text('step').notNull(),
+    completedAt: ts('completed_at').notNull().defaultNow(),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    primaryKey({
+      name: 'player_onboarding_pk',
+      columns: [t.playerId, t.step],
+    }),
+    check(
+      'player_onboarding_step_check',
+      sql`${t.step} ~ '^[a-z][a-z0-9_]{1,39}$'`,
+    ),
+  ],
+);

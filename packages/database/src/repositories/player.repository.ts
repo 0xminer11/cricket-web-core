@@ -63,6 +63,11 @@ export interface CreatePlayerProfileInput {
   readonly primaryRole: PlayerRole;
   readonly secondaryRoles?: readonly PlayerRole[];
   readonly bowlingStyle?: BowlingStyle;
+  /** Module 4 creation metadata (all optional; absent for seeded/test players). */
+  readonly creationKey?: string;
+  readonly creationRequestHash?: string;
+  readonly creationBalanceVersion?: string;
+  readonly starterPersonalityId?: string;
 }
 export type CreatePlayerAppearanceInput = Omit<
   PlayerAppearanceRecord,
@@ -111,6 +116,10 @@ const toProfile = (
   primaryRole: row.primaryRole,
   secondaryRoles: row.secondaryRoles,
   bowlingStyle: row.bowlingStyle,
+  creationKey: row.creationKey,
+  creationRequestHash: row.creationRequestHash,
+  creationBalanceVersion: row.creationBalanceVersion,
+  starterPersonalityId: row.starterPersonalityId,
   createdAt: row.createdAt,
   updatedAt: row.updatedAt,
 });
@@ -172,6 +181,16 @@ export class PlayerRepository extends Repository {
           primaryRole: input.primaryRole,
           secondaryRoles: [...(input.secondaryRoles ?? [])],
           ...(input.bowlingStyle ? { bowlingStyle: input.bowlingStyle } : {}),
+          ...(input.creationKey ? { creationKey: input.creationKey } : {}),
+          ...(input.creationRequestHash
+            ? { creationRequestHash: input.creationRequestHash }
+            : {}),
+          ...(input.creationBalanceVersion
+            ? { creationBalanceVersion: input.creationBalanceVersion }
+            : {}),
+          ...(input.starterPersonalityId
+            ? { starterPersonalityId: input.starterPersonalityId }
+            : {}),
         })
         .returning();
       return toProfile(requireRow(rows, 'Player'));
@@ -229,6 +248,44 @@ export class PlayerRepository extends Repository {
         .from(playerAppearance)
         .where(eq(playerAppearance.playerId, playerId));
       return rows[0] ? this.toAppearance(rows[0]) : null;
+    });
+  }
+
+  /** Partial cosmetic update (callers validate ids against the registry first). */
+  updateAppearance(
+    playerId: string,
+    patch: {
+      readonly bodyPresetId?: string | undefined;
+      readonly facePresetId?: string | undefined;
+      readonly skinToneId?: string | undefined;
+      readonly hairStyleId?: string | undefined;
+      readonly hairColorId?: string | undefined;
+      readonly beardStyleId?: string | null | undefined;
+      readonly heightScale?: number | undefined;
+    },
+  ): Promise<PlayerAppearanceRecord> {
+    return this.run(async () => {
+      assertUuid(playerId, 'playerId');
+      const set: Partial<typeof playerAppearance.$inferInsert> = {};
+      if (patch.bodyPresetId !== undefined)
+        set.bodyPresetId = patch.bodyPresetId;
+      if (patch.facePresetId !== undefined)
+        set.facePresetId = patch.facePresetId;
+      if (patch.skinToneId !== undefined) set.skinToneId = patch.skinToneId;
+      if (patch.hairStyleId !== undefined) set.hairStyleId = patch.hairStyleId;
+      if (patch.hairColorId !== undefined) set.hairColorId = patch.hairColorId;
+      if (patch.beardStyleId !== undefined)
+        set.beardStyleId = patch.beardStyleId;
+      if (patch.heightScale !== undefined)
+        set.heightScale = patch.heightScale.toFixed(3);
+      if (Object.keys(set).length === 0)
+        throw new InvalidInputError('Nothing to update');
+      const rows = await this.db
+        .update(playerAppearance)
+        .set(set)
+        .where(eq(playerAppearance.playerId, playerId))
+        .returning();
+      return this.toAppearance(requireRow(rows, 'Player appearance'));
     });
   }
 

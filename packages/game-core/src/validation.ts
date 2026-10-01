@@ -20,6 +20,29 @@ import {
   SPONSOR_OFFERS,
 } from './seed/index';
 import { ASSET_MANIFEST, validateAssetManifest } from './assets/index';
+import {
+  BOWLING_STYLE_LABELS,
+  STARTER_ROLES,
+} from './config/starter-player.config';
+import { listCreationCombinations, buildStarterPlayer } from './creation';
+import { validateCareerHomeConfig } from './career-home';
+import { validateTrainingConfig } from './training/training-validation';
+import {
+  BATTING_HANDS,
+  PERSONALITY_ARCHETYPES,
+  REQUIRED_STARTER_SLOTS,
+  STARTER_CAREER,
+  STARTER_LOADOUT,
+  STARTER_OVERALL_TOLERANCE,
+  STARTER_ROLE_PROFILES,
+  STARTER_TARGET_OVERALL,
+  STARTER_WALLET,
+  PERSONALITY_TRAIT_BOUNDS,
+  HEIGHT_SCALE_RULES,
+} from './config/starter-player.config';
+import { APPEARANCE_OPTIONS } from './seed/appearance.seed';
+import { ISO_COUNTRY_CODES } from './config/countries';
+import { derivePersonality } from './creation';
 import type { AssetManifestEntry } from './assets/index';
 export const gameDefinitions = {
   items: ITEMS,
@@ -36,6 +59,199 @@ export const gameDefinitions = {
   contracts: CONTRACTS,
   sponsors: SPONSOR_OFFERS,
 };
+/**
+ * Fail-fast checks for the Module 4 starter configuration (run with every definition
+ * validation, at API boot outside production, and in tests): every role has starter stats and
+ * valid styles, the starter loadout exists and fits the slots, archetypes net to zero, appearance
+ * options are well-formed with a starter choice in every category, and every valid role+style
+ * combination starts at a comparable Player Overall.
+ */
+export function validateStarterConfig(
+  data: Pick<
+    typeof gameDefinitions,
+    'items' | 'teams' | 'careerTiers'
+  > = gameDefinitions,
+): readonly string[] {
+  const errors: string[] = [];
+  const assert = (valid: boolean, message: string): void => {
+    if (!valid) errors.push(message);
+  };
+  const stat = (n: unknown): boolean =>
+    typeof n === 'number' &&
+    Number.isInteger(n) &&
+    n >= PLAYER_CONFIG.statMin &&
+    n <= PLAYER_CONFIG.statMax;
+  assert(
+    new Set(ISO_COUNTRY_CODES).size === ISO_COUNTRY_CODES.length &&
+      ISO_COUNTRY_CODES.every((c) => /^[A-Z]{2}$/.test(c)),
+    'Invalid ISO country list',
+  );
+  assert(BATTING_HANDS.length === 2, 'Batting hands must be left and right');
+  for (const [role, definition] of Object.entries(STARTER_ROLES)) {
+    const profile = STARTER_ROLE_PROFILES[role as keyof typeof STARTER_ROLES];
+    assert(
+      !!profile && role in ROLE_WEIGHTS,
+      `Starter role without profile/weights: ${role}`,
+    );
+    if (!profile) continue;
+    for (const group of [profile.batting, profile.physical])
+      for (const [key, value] of Object.entries(group))
+        assert(stat(value), `Invalid starter stat: ${role}.${key}`);
+    for (const style of definition.allowedBowlingStyles)
+      assert(
+        style in BOWLING_STYLE_LABELS,
+        `Unknown bowling style in ${role}: ${style}`,
+      );
+    assert(
+      definition.bowling !== 'required' ||
+        definition.allowedBowlingStyles.length > 0,
+      `Bowling role without styles: ${role}`,
+    );
+    for (const [style, level] of Object.entries(
+      profile.bowlingLevelByStyle ?? {},
+    ))
+      assert(
+        stat(level) && definition.allowedBowlingStyles.includes(style as never),
+        `Invalid bowling level: ${role}.${style}`,
+      );
+    if (definition.bowling === 'required')
+      for (const style of definition.allowedBowlingStyles)
+        assert(
+          profile.bowlingLevelByStyle?.[style] !== undefined,
+          `Missing bowling level: ${role}.${style}`,
+        );
+  }
+  const slots = new Set(Object.keys(STARTER_LOADOUT));
+  for (const slot of REQUIRED_STARTER_SLOTS)
+    assert(slots.has(slot), `Starter loadout missing slot: ${slot}`);
+  for (const [slot, itemId] of Object.entries(STARTER_LOADOUT)) {
+    const item = data.items.find((i) => i.id === itemId);
+    assert(!!item, `Unknown starter item: ${itemId}`);
+    if (!item) continue;
+    assert(
+      item.slot === slot,
+      `Starter item ${itemId} does not fit slot ${slot}`,
+    );
+    assert(
+      item.levelRequirement <= STARTER_CAREER.level,
+      `Starter item above starting level: ${itemId}`,
+    );
+  }
+  assert(
+    data.careerTiers.some((t) => t.id === STARTER_CAREER.tier),
+    'Unknown starter career tier',
+  );
+  const team = data.teams.find((t) => t.teamId === STARTER_CAREER.teamId);
+  assert(
+    !!team && team.careerTier === STARTER_CAREER.tier,
+    'Starter team must exist in the starter tier',
+  );
+  assert(
+    Number.isSafeInteger(STARTER_WALLET.coins) &&
+      STARTER_WALLET.coins >= 0 &&
+      Number.isSafeInteger(STARTER_WALLET.gems) &&
+      STARTER_WALLET.gems >= 0,
+    'Invalid starter wallet',
+  );
+  assert(
+    STARTER_CAREER.level >= 1 &&
+      STARTER_CAREER.level <= PLAYER_CONFIG.levelCap &&
+      STARTER_CAREER.xp >= 0,
+    'Invalid starter level/xp',
+  );
+  const ids = PERSONALITY_ARCHETYPES.map((a) => a.id);
+  assert(
+    new Set(ids).size === ids.length && ids.includes('personality.balanced'),
+    'Invalid personality archetype ids',
+  );
+  for (const archetype of PERSONALITY_ARCHETYPES) {
+    const net = Object.values(archetype.deltas).reduce(
+      (a, b) => a + (b ?? 0),
+      0,
+    );
+    assert(
+      net === 0,
+      `Personality archetype is not a trade-off (net ${net}): ${archetype.id}`,
+    );
+    const traits = derivePersonality(archetype.id);
+    assert(
+      !!traits &&
+        Object.values(traits).every(
+          (v) =>
+            v >= PERSONALITY_TRAIT_BOUNDS.min &&
+            v <= PERSONALITY_TRAIT_BOUNDS.max,
+        ),
+      `Personality out of range: ${archetype.id}`,
+    );
+  }
+  const optionIds = APPEARANCE_OPTIONS.map((o) => o.id);
+  assert(
+    new Set(optionIds).size === optionIds.length,
+    'Duplicate appearance option ids',
+  );
+  for (const option of APPEARANCE_OPTIONS)
+    assert(
+      /^appearance\.[a-z0-9_]+(\.[a-z0-9_]+)+$/.test(option.id) &&
+        option.assetId.startsWith('asset.'),
+      `Invalid appearance option: ${option.id}`,
+    );
+  for (const category of [
+    'body',
+    'face',
+    'skin',
+    'hairStyle',
+    'hairColor',
+    'beard',
+  ] as const)
+    assert(
+      APPEARANCE_OPTIONS.some(
+        (o) => o.category === category && o.unlock === 'starter',
+      ),
+      `No starter appearance option for ${category}`,
+    );
+  assert(
+    HEIGHT_SCALE_RULES.min >= 0.85 &&
+      HEIGHT_SCALE_RULES.max <= 1.15 &&
+      HEIGHT_SCALE_RULES.min <= HEIGHT_SCALE_RULES.default &&
+      HEIGHT_SCALE_RULES.default <= HEIGHT_SCALE_RULES.max,
+    'Height scale rules exceed the persisted range',
+  );
+  // Balance: every valid combination must build and start near the target overall.
+  const pick = (category: (typeof APPEARANCE_OPTIONS)[number]['category']) =>
+    APPEARANCE_OPTIONS.find(
+      (o) => o.category === category && o.unlock === 'starter',
+    )?.id ?? '';
+  for (const { role, style } of listCreationCombinations()) {
+    const built = buildStarterPlayer({
+      countryCode: 'IN',
+      jerseyNumber: 7,
+      battingHand: 'right',
+      primaryRole: role,
+      bowlingStyle: style,
+      appearance: {
+        bodyPresetId: pick('body'),
+        facePresetId: pick('face'),
+        skinToneId: pick('skin'),
+        hairStyleId: pick('hairStyle'),
+        hairColorId: pick('hairColor'),
+        beardStyleId: pick('beard'),
+        heightScale: HEIGHT_SCALE_RULES.default,
+      },
+      personalityArchetypeId: 'personality.balanced',
+    });
+    if (!built.ok) {
+      errors.push(`Starter build failed for ${role}/${style}: ${built.code}`);
+      continue;
+    }
+    assert(
+      Math.abs(built.value.overall.player - STARTER_TARGET_OVERALL) <=
+        STARTER_OVERALL_TOLERANCE,
+      `Starter overall off target for ${role}/${style}: ${built.value.overall.player}`,
+    );
+  }
+  return errors;
+}
+
 export function validateGameDefinitions(
   data: typeof gameDefinitions = gameDefinitions,
   manifest: readonly AssetManifestEntry[] = ASSET_MANIFEST,
@@ -261,5 +477,8 @@ export function validateGameDefinitions(
   for (const id of new Set(refs))
     if (id && !assetIds.has(id as `asset.${string}`))
       warnings.push(`Asset pending: ${id}`);
+  errors.push(...validateStarterConfig(data));
+  errors.push(...validateCareerHomeConfig());
+  errors.push(...validateTrainingConfig());
   return { errors, warnings };
 }

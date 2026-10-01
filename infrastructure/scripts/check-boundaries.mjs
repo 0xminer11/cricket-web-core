@@ -15,6 +15,7 @@ const allowed = {
   web: ['config', 'ui', 'shared-types', 'game-core'],
   admin: ['config', 'ui', 'shared-types', 'game-core'],
   api: [
+    'match-engine',
     'server-kit',
     'config',
     'game-core',

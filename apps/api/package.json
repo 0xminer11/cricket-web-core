@@ -7,7 +7,10 @@
     "dev": "tsx watch --env-file-if-exists=../../.env src/server.ts",
     "build": "tsup src/server.ts --format esm --clean",
     "start": "node --env-file-if-exists=../../.env dist/server.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "auth:cleanup-sessions": "tsx --env-file-if-exists=../../.env src/cli/cleanup-sessions.ts",
+    "auth:create-test-user": "tsx --env-file-if-exists=../../.env src/cli/create-test-user.ts",
+    "auth:benchmark-hash": "tsx --env-file-if-exists=../../.env src/cli/benchmark-hash.ts"
   },
   "dependencies": {
     "@the-cricketer/server-kit": "workspace:*",
@@ -15,7 +18,12 @@
     "@the-cricketer/game-core": "workspace:*",
     "@the-cricketer/shared-types": "workspace:*",
     "@the-cricketer/logger": "workspace:*",
-    "@the-cricketer/database": "workspace:*"
+    "@the-cricketer/database": "workspace:*",
+    "fastify": "5.12.5",
+    "@fastify/cookie": "^11.1.2",
+    "zod": "^4.3.0",
+    "redis": "^5.11.0",
+    "@the-cricketer/match-engine": "workspace:*"
   },
   "files": [
     "dist"

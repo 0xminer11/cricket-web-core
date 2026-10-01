@@ -22,7 +22,11 @@
     "DATABASE_CONNECTION_TIMEOUT_MS",
     "DATABASE_STATEMENT_TIMEOUT_MS",
     "DATABASE_SLOW_QUERY_MS",
-    "TEST_DATABASE_URL"
+    "TEST_DATABASE_URL",
+    "TRUST_PROXY",
+    "EMAIL_PROVIDER",
+    "AUTH_*",
+    "PLAYER_*"
   ],
   "tasks": {
     "build": {

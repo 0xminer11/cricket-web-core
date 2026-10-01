@@ -25,4 +25,5 @@ export interface VersionStamp {
 
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 export type CurrencyCode = 'coins' | 'gems';
-export type CareerTierId = 'academy' | 'club' | 'district' | 'domestic' | 'franchise' | 'international';
+export type CareerTierId =
+  'academy' | 'club' | 'district' | 'domestic' | 'franchise' | 'international';

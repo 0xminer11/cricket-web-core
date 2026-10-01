@@ -47,6 +47,7 @@ import type {
 } from '../records';
 import {
   matchBalls,
+  matchEngineSessions,
   matchInnings,
   matchOvers,
   matchParticipants,
@@ -219,6 +220,68 @@ export class MatchRepository extends Repository {
     private readonly ctx: RepositoryContext,
   ) {
     super();
+  }
+
+  /** Call under the outer service transaction, before any replay/normalized write. */
+  lockMatch(matchId: string): Promise<void> {
+    return this.run(async () => {
+      assertUuid(matchId, 'matchId');
+      requireRow(
+        await this.db
+          .select({ id: matches.id })
+          .from(matches)
+          .where(eq(matches.id, matchId))
+          .for('update'),
+        'Match',
+      );
+    });
+  }
+  findByFixture(fixtureId: string): Promise<MatchRecord | null> {
+    return this.run(async () => {
+      const rows = await this.db
+        .select()
+        .from(matches)
+        .where(eq(matches.fixtureId, fixtureId));
+      return rows[0] ? toMatch(rows[0]) : null;
+    });
+  }
+  getEngineSession(matchId: string) {
+    return this.run(
+      async () =>
+        (
+          await this.db
+            .select()
+            .from(matchEngineSessions)
+            .where(eq(matchEngineSessions.matchId, matchId))
+        )[0] ?? null,
+    );
+  }
+  createEngineSession(
+    input: typeof matchEngineSessions.$inferInsert,
+  ): Promise<void> {
+    return this.run(async () => {
+      await this.db.insert(matchEngineSessions).values(input);
+    });
+  }
+  saveEngineSession(
+    matchId: string,
+    expectedRevision: number,
+    replay: unknown,
+    state: unknown,
+  ): Promise<void> {
+    return this.run(async () => {
+      const rows = await this.db
+        .update(matchEngineSessions)
+        .set({ revision: expectedRevision + 1, replay, state })
+        .where(
+          and(
+            eq(matchEngineSessions.matchId, matchId),
+            eq(matchEngineSessions.revision, expectedRevision),
+          ),
+        )
+        .returning({ id: matchEngineSessions.matchId });
+      if (!rows.length) throw new InvalidInputError('Stale match revision');
+    });
   }
 
   // ---- lifecycle ---------------------------------------------------------------------------

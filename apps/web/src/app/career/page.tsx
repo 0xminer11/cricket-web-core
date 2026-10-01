@@ -1,15 +1,7 @@
-import Link from 'next/link';
-import { Card } from '@the-cricketer/ui';
+import { CareerHome } from '../../features/career/components/career-home';
+
+export const metadata = { title: 'Career — THE CRICKETER' };
+
 export default function Page() {
-  return (
-    <>
-      <h1>Career</h1>
-      <Card>
-        <p>Application shell only. This feature arrives in a future module.</p>
-      </Card>
-      <p>
-        <Link href="/">Back to dashboard</Link>
-      </p>
-    </>
-  );
+  return <CareerHome />;
 }

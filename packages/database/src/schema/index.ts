@@ -1,4 +1,5 @@
 export * from './identity';
+export * from './auth';
 export * from './teams';
 export * from './player';
 export * from './career';

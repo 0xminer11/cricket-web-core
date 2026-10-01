@@ -13,7 +13,12 @@ import type {
   PlayerRole,
 } from '@the-cricketer/game-core';
 import type {
+  AccountType,
   AcquisitionSource,
+  AuditActorType,
+  AuthProviderId,
+  AuthTokenPurpose,
+  SessionRevokeReason,
   CareerEventStatus,
   CareerHistoryEventType,
   CareerStatus,
@@ -47,10 +52,60 @@ export interface UserRecord {
   readonly id: string;
   readonly status: UserStatus;
   readonly origin: UserOrigin;
+  readonly accountType: AccountType;
+  readonly registeredAt: Date | null;
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly lastSeenAt: Date | null;
   readonly deletedAt: Date | null;
+}
+
+/** Login method of an account, without credentials. */
+export interface AuthIdentityRecord {
+  readonly id: string;
+  readonly userId: string;
+  readonly provider: AuthProviderId;
+  readonly providerSubject: string;
+  readonly email: string | null;
+  readonly emailNormalized: string | null;
+  readonly emailVerifiedAt: Date | null;
+  readonly passwordChangedAt: Date | null;
+  readonly createdAt: Date;
+}
+/** Identity plus its stored password hash. Only the auth service's credential checks may touch this. */
+export interface AuthCredentialRecord extends AuthIdentityRecord {
+  readonly passwordHash: string | null;
+}
+
+export interface AuthSessionRecord {
+  readonly id: string;
+  readonly userId: string;
+  readonly createdAt: Date;
+  readonly lastSeenAt: Date;
+  readonly expiresAt: Date;
+  readonly absoluteExpiresAt: Date;
+  readonly revokedAt: Date | null;
+  readonly revokedReason: SessionRevokeReason | null;
+  readonly userAgentSummary: string | null;
+}
+/** A session row with the minimal account state needed to authorise a request. */
+export interface AuthSessionWithUser {
+  readonly session: AuthSessionRecord;
+  readonly user: {
+    readonly id: string;
+    readonly status: UserStatus;
+    readonly accountType: AccountType;
+  };
+}
+
+export interface AuthTokenRecord {
+  readonly id: string;
+  readonly userId: string;
+  readonly purpose: AuthTokenPurpose;
+  readonly emailNormalized: string | null;
+  readonly expiresAt: Date;
+  readonly consumedAt: Date | null;
+  readonly createdAt: Date;
 }
 
 export interface PlayerProfileRecord {
@@ -63,6 +118,10 @@ export interface PlayerProfileRecord {
   readonly primaryRole: PlayerRole;
   readonly secondaryRoles: readonly PlayerRole[];
   readonly bowlingStyle: BowlingStyle | null;
+  readonly creationKey: string | null;
+  readonly creationRequestHash: string | null;
+  readonly creationBalanceVersion: string | null;
+  readonly starterPersonalityId: string | null;
   readonly createdAt: Date;
   readonly updatedAt: Date;
 }
@@ -422,7 +481,7 @@ export interface AchievementRecord {
 
 export interface AuditLogRecord {
   readonly id: string;
-  readonly actorType: 'system' | 'admin' | 'service';
+  readonly actorType: AuditActorType;
   readonly actorId: string | null;
   readonly action: string;
   readonly targetType: string;

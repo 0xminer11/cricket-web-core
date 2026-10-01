@@ -10,17 +10,19 @@
     "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@the-cricketer/config": "workspace:*",
+    "@the-cricketer/game-core": "workspace:*",
+    "@the-cricketer/shared-types": "workspace:*",
+    "@the-cricketer/ui": "workspace:*",
     "next": "16.3.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "@the-cricketer/config": "workspace:*",
-    "@the-cricketer/ui": "workspace:*",
-    "@the-cricketer/shared-types": "workspace:*",
-    "@the-cricketer/game-core": "workspace:*",
+    "three": "0.186.1",
     "zod": "^4.3.0"
   },
   "devDependencies": {
-    "tailwindcss": "^4.2.0",
-    "@tailwindcss/postcss": "^4.2.0"
+    "@tailwindcss/postcss": "^4.2.0",
+    "@types/three": "0.186.0",
+    "tailwindcss": "^4.2.0"
   }
 }

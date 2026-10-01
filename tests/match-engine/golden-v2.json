@@ -1,0 +1,2484 @@
+{
+  "matchId": "test-match",
+  "status": "completed",
+  "formatId": "format.2_over",
+  "pitchId": "pitch.hard",
+  "versions": {
+    "matchEngineVersion": "2",
+    "gameBalanceVersion": "1",
+    "schemaVersion": 2
+  },
+  "toss": {
+    "winnerTeamId": "team.a",
+    "decision": "bat"
+  },
+  "innings": [
+    {
+      "inningsNumber": 1,
+      "battingTeamId": "team.a",
+      "bowlingTeamId": "team.b",
+      "isSuperOver": false,
+      "maxBalls": 12,
+      "maxWickets": 5,
+      "runs": 33,
+      "wickets": 1,
+      "extras": 0,
+      "legalBalls": 12,
+      "target": null,
+      "strikerId": "team.a.player.2",
+      "nonStrikerId": "team.a.player.3",
+      "currentBowlerId": null,
+      "nextBatterIndex": 3,
+      "completed": true,
+      "overs": [
+        {
+          "overNumber": 1,
+          "bowlerId": "team.b.player.6",
+          "runs": 15,
+          "conceded": 15,
+          "wickets": 0,
+          "legalBalls": 6,
+          "completed": true,
+          "balls": [
+            {
+              "runsOffBat": 3,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 3,
+              "distanceClass": "outfield",
+              "sequenceNumber": 1,
+              "inningsSequence": 1,
+              "inningsNumber": 1,
+              "overNumber": 1,
+              "ballInOver": 1,
+              "strikerId": "team.a.player.1",
+              "nonStrikerId": "team.a.player.2",
+              "bowlerId": "team.b.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.stock",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.7465243673084339,
+                  "y": 0.5404226376808416
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 36.33512434052306,
+                "swing": 0,
+                "seam": 0.06804991335731622,
+                "spin": 0,
+                "bounce": 0.5252716599531625,
+                "executionQuality": 0.4387710354685783,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.back_foot_defensive",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.9129854319541297,
+                "contactScore": 0.6349115384827724,
+                "contactQuality": "okay",
+                "direction": 0.21733627950306977,
+                "worldDirection": -0.21733627950306977,
+                "sector": "straight",
+                "exitSpeed": 7.950362284881276,
+                "launchAngle": 8
+              },
+              "scoreAfter": 3,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.a.player.2",
+              "nonStrikerAfter": "team.a.player.1",
+              "events": [
+                {
+                  "sequence": 5,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 1,
+                  "playerId": "team.a.player.1",
+                  "runs": 3
+                }
+              ]
+            },
+            {
+              "runsOffBat": 0,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "infield",
+              "sequenceNumber": 2,
+              "inningsSequence": 2,
+              "inningsNumber": 1,
+              "overNumber": 1,
+              "ballInOver": 2,
+              "strikerId": "team.a.player.2",
+              "nonStrikerId": "team.a.player.1",
+              "bowlerId": "team.b.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.yorker",
+                "intendedLine": "middle",
+                "intendedLength": "yorker",
+                "target": {
+                  "x": 0.55,
+                  "y": 0.06
+                },
+                "actualTarget": {
+                  "x": 0.5235948248173288,
+                  "y": 0.0484396143544361
+                },
+                "actualLine": "middle",
+                "actualLength": "yorker",
+                "speed": 35.929374985471725,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.04655583557681564,
+                "executionQuality": 0.3057776455622413,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_straight",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.389853562637385,
+                "contactScore": 0.5085536600918134,
+                "contactQuality": "poor",
+                "direction": -9.095589857874435,
+                "worldDirection": -9.095589857874435,
+                "sector": "straight",
+                "exitSpeed": 16.450948073480024,
+                "launchAngle": 38
+              },
+              "scoreAfter": 3,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.a.player.2",
+              "nonStrikerAfter": "team.a.player.1",
+              "events": [
+                {
+                  "sequence": 6,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 2,
+                  "playerId": "team.a.player.2",
+                  "runs": 0
+                }
+              ]
+            },
+            {
+              "runsOffBat": 4,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "boundary",
+              "sequenceNumber": 3,
+              "inningsSequence": 3,
+              "inningsNumber": 1,
+              "overNumber": 1,
+              "ballInOver": 3,
+              "strikerId": "team.a.player.2",
+              "nonStrikerId": "team.a.player.1",
+              "bowlerId": "team.b.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.cutter",
+                "intendedLine": "middle",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.55,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.6112217328404718,
+                  "y": 0.42606476788818787
+                },
+                "actualLine": "middle",
+                "actualLength": "good",
+                "speed": 36.043744415047115,
+                "swing": 0,
+                "seam": 0.12000547064123691,
+                "spin": 0,
+                "bounce": 0.41079893674698736,
+                "executionQuality": 0.34346624178467594,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.36151769464292877,
+                "contactScore": 0.6322982827404908,
+                "contactQuality": "okay",
+                "direction": -53.94124791659414,
+                "worldDirection": -53.94124791659414,
+                "sector": "mid_wicket",
+                "exitSpeed": 15.17547493491315,
+                "launchAngle": 8
+              },
+              "scoreAfter": 7,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.a.player.2",
+              "nonStrikerAfter": "team.a.player.1",
+              "events": [
+                {
+                  "sequence": 7,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 3,
+                  "playerId": "team.a.player.2",
+                  "runs": 4
+                },
+                {
+                  "sequence": 8,
+                  "type": "BOUNDARY",
+                  "inningsNumber": 1,
+                  "deliverySequence": 3,
+                  "playerId": "team.a.player.2"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 0,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "infield",
+              "sequenceNumber": 4,
+              "inningsSequence": 4,
+              "inningsNumber": 1,
+              "overNumber": 1,
+              "ballInOver": 4,
+              "strikerId": "team.a.player.2",
+              "nonStrikerId": "team.a.player.1",
+              "bowlerId": "team.b.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.cutter",
+                "intendedLine": "off_stump",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.43,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.37677049921467,
+                  "y": 0.4532593554706145
+                },
+                "actualLine": "off_stump",
+                "actualLength": "good",
+                "speed": 36.558164742350435,
+                "swing": 0,
+                "seam": 0.1351133582924314,
+                "spin": 0,
+                "bounce": 0.44325633253719365,
+                "executionQuality": 0.5127181376307964,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.back_foot_defensive",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.28128007498887364,
+                "contactScore": 0.5945838172269504,
+                "contactQuality": "okay",
+                "direction": 8.639161187887655,
+                "worldDirection": 8.639161187887655,
+                "sector": "straight",
+                "exitSpeed": 7.4453785593158734,
+                "launchAngle": 8
+              },
+              "scoreAfter": 7,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.a.player.2",
+              "nonStrikerAfter": "team.a.player.1",
+              "events": [
+                {
+                  "sequence": 9,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 4,
+                  "playerId": "team.a.player.2",
+                  "runs": 0
+                }
+              ]
+            },
+            {
+              "runsOffBat": 2,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 2,
+              "distanceClass": "outfield",
+              "sequenceNumber": 5,
+              "inningsSequence": 5,
+              "inningsNumber": 1,
+              "overNumber": 1,
+              "ballInOver": 5,
+              "strikerId": "team.a.player.2",
+              "nonStrikerId": "team.a.player.1",
+              "bowlerId": "team.b.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.yorker",
+                "intendedLine": "off_stump",
+                "intendedLength": "yorker",
+                "target": {
+                  "x": 0.43,
+                  "y": 0.06
+                },
+                "actualTarget": {
+                  "x": 0.45467391469743396,
+                  "y": 0.057143963365756265
+                },
+                "actualLine": "off_stump",
+                "actualLength": "yorker",
+                "speed": 36.07638545682454,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.05514639960844104,
+                "executionQuality": 0.3550625617084147,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.pull",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.7980849122503183,
+                "contactScore": 0.6142816778456086,
+                "contactQuality": "okay",
+                "direction": -48.657334303914105,
+                "worldDirection": -48.657334303914105,
+                "sector": "mid_wicket",
+                "exitSpeed": 17.627580597877046,
+                "launchAngle": 8
+              },
+              "scoreAfter": 9,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.a.player.2",
+              "nonStrikerAfter": "team.a.player.1",
+              "events": [
+                {
+                  "sequence": 10,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 5,
+                  "playerId": "team.a.player.2",
+                  "runs": 2
+                }
+              ]
+            },
+            {
+              "runsOffBat": 6,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "six",
+              "sequenceNumber": 6,
+              "inningsSequence": 6,
+              "inningsNumber": 1,
+              "overNumber": 1,
+              "ballInOver": 6,
+              "strikerId": "team.a.player.2",
+              "nonStrikerId": "team.a.player.1",
+              "bowlerId": "team.b.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.stock",
+                "intendedLine": "off_stump",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.43,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.5149969256253357,
+                  "y": 0.5307932528326029
+                },
+                "actualLine": "middle",
+                "actualLength": "good",
+                "speed": 36.1794773807006,
+                "swing": 0,
+                "seam": 0.06566345596753055,
+                "spin": 0,
+                "bounce": 0.5137022514653411,
+                "executionQuality": 0.3889941963770982,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_straight",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.8634310197280471,
+                "contactScore": 0.7658639230081785,
+                "contactQuality": "good",
+                "direction": -5.120623873767908,
+                "worldDirection": -5.120623873767908,
+                "sector": "straight",
+                "exitSpeed": 24.774549113430066,
+                "launchAngle": 38
+              },
+              "scoreAfter": 15,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.a.player.1",
+              "nonStrikerAfter": "team.a.player.2",
+              "events": [
+                {
+                  "sequence": 11,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 6,
+                  "playerId": "team.a.player.2",
+                  "runs": 6
+                },
+                {
+                  "sequence": 12,
+                  "type": "SIX",
+                  "inningsNumber": 1,
+                  "deliverySequence": 6,
+                  "playerId": "team.a.player.2"
+                },
+                {
+                  "sequence": 13,
+                  "type": "OVER_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "overNumber": 2,
+          "bowlerId": "team.b.player.7",
+          "runs": 18,
+          "conceded": 18,
+          "wickets": 1,
+          "legalBalls": 6,
+          "completed": true,
+          "balls": [
+            {
+              "runsOffBat": 6,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "six",
+              "sequenceNumber": 7,
+              "inningsSequence": 7,
+              "inningsNumber": 1,
+              "overNumber": 2,
+              "ballInOver": 1,
+              "strikerId": "team.a.player.1",
+              "nonStrikerId": "team.a.player.2",
+              "bowlerId": "team.b.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.arm_ball",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.75956937760641,
+                  "y": 0.4908837014051227
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 21.752440800244017,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.2856343240110741,
+                "executionQuality": 0.4785856833933294,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_leg_side",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.77320666915034,
+                "contactScore": 0.7418702991196044,
+                "contactQuality": "good",
+                "direction": -39.91832272005268,
+                "worldDirection": 39.91832272005268,
+                "sector": "mid_wicket",
+                "exitSpeed": 24.772533028201835,
+                "launchAngle": 38
+              },
+              "scoreAfter": 21,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.a.player.1",
+              "nonStrikerAfter": "team.a.player.2",
+              "events": [
+                {
+                  "sequence": 15,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 7,
+                  "playerId": "team.a.player.1",
+                  "runs": 6
+                },
+                {
+                  "sequence": 16,
+                  "type": "SIX",
+                  "inningsNumber": 1,
+                  "deliverySequence": 7,
+                  "playerId": "team.a.player.1"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 0,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": "caught",
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "infield",
+              "sequenceNumber": 8,
+              "inningsSequence": 8,
+              "inningsNumber": 1,
+              "overNumber": 2,
+              "ballInOver": 2,
+              "strikerId": "team.a.player.1",
+              "nonStrikerId": "team.a.player.2",
+              "bowlerId": "team.b.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.arm_ball",
+                "intendedLine": "middle",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.55,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.48121907531082225,
+                  "y": 0.4087782288057926
+                },
+                "actualLine": "off_stump",
+                "actualLength": "good",
+                "speed": 21.68416214349434,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.2371123582936526,
+                "executionQuality": 0.441141204586279,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.47152823774807023,
+                "contactScore": 0.524121187196326,
+                "contactQuality": "poor",
+                "direction": -53.046771153598094,
+                "worldDirection": 53.046771153598094,
+                "sector": "mid_wicket",
+                "exitSpeed": 12.579170553305426,
+                "launchAngle": 8
+              },
+              "scoreAfter": 21,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.a.player.3",
+              "nonStrikerAfter": "team.a.player.2",
+              "events": [
+                {
+                  "sequence": 17,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 8,
+                  "playerId": "team.a.player.1",
+                  "runs": 0
+                },
+                {
+                  "sequence": 18,
+                  "type": "WICKET",
+                  "inningsNumber": 1,
+                  "deliverySequence": 8,
+                  "playerId": "team.a.player.1"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 4,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "boundary",
+              "sequenceNumber": 9,
+              "inningsSequence": 9,
+              "inningsNumber": 1,
+              "overNumber": 2,
+              "ballInOver": 3,
+              "strikerId": "team.a.player.3",
+              "nonStrikerId": "team.a.player.2",
+              "bowlerId": "team.b.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.stock_off",
+                "intendedLine": "middle",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.55,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.6332019047176688,
+                  "y": 0.47575803289954016
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 21.641654319487856,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0.14748906157490654,
+                "bounce": 0.27542310624681443,
+                "executionQuality": 0.4178875466797941,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_straight",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.9260747483919286,
+                "contactScore": 0.6429852704175703,
+                "contactQuality": "okay",
+                "direction": 2.832109196006785,
+                "worldDirection": 2.832109196006785,
+                "sector": "straight",
+                "exitSpeed": 20.799609020102775,
+                "launchAngle": 38
+              },
+              "scoreAfter": 25,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.a.player.3",
+              "nonStrikerAfter": "team.a.player.2",
+              "events": [
+                {
+                  "sequence": 19,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 9,
+                  "playerId": "team.a.player.3",
+                  "runs": 4
+                },
+                {
+                  "sequence": 20,
+                  "type": "BOUNDARY",
+                  "inningsNumber": 1,
+                  "deliverySequence": 9,
+                  "playerId": "team.a.player.3"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 3,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 3,
+              "distanceClass": "outfield",
+              "sequenceNumber": 10,
+              "inningsSequence": 10,
+              "inningsNumber": 1,
+              "overNumber": 2,
+              "ballInOver": 4,
+              "strikerId": "team.a.player.3",
+              "nonStrikerId": "team.a.player.2",
+              "bowlerId": "team.b.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.top_spinner",
+                "intendedLine": "off_stump",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.43,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.42697031233550026,
+                  "y": 0.44611564571966233
+                },
+                "actualLine": "off_stump",
+                "actualLength": "good",
+                "speed": 21.556244850124386,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0.1426118554208404,
+                "bounce": 0.25724346392366737,
+                "executionQuality": 0.3711615391013963,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_off_side",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.219127843925154,
+                "contactScore": 0.5962398875305819,
+                "contactQuality": "okay",
+                "direction": 47.1240632173256,
+                "worldDirection": 47.1240632173256,
+                "sector": "cover",
+                "exitSpeed": 19.909642324421192,
+                "launchAngle": 38
+              },
+              "scoreAfter": 28,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.a.player.2",
+              "nonStrikerAfter": "team.a.player.3",
+              "events": [
+                {
+                  "sequence": 21,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 10,
+                  "playerId": "team.a.player.3",
+                  "runs": 3
+                }
+              ]
+            },
+            {
+              "runsOffBat": 1,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 1,
+              "distanceClass": "infield",
+              "sequenceNumber": 11,
+              "inningsSequence": 11,
+              "inningsNumber": 1,
+              "overNumber": 2,
+              "ballInOver": 5,
+              "strikerId": "team.a.player.2",
+              "nonStrikerId": "team.a.player.3",
+              "bowlerId": "team.b.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.arm_ball",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.6691382434545056,
+                  "y": 0.5007691497377723
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 21.757170651981784,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.2914498059364753,
+                "executionQuality": 0.4818126598233291,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.back_foot_defensive",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.9180707179441241,
+                "contactScore": 0.6409980224745311,
+                "contactQuality": "okay",
+                "direction": 0.5843136028968727,
+                "worldDirection": 0.5843136028968727,
+                "sector": "straight",
+                "exitSpeed": 8.026577237426078,
+                "launchAngle": 8
+              },
+              "scoreAfter": 29,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.a.player.3",
+              "nonStrikerAfter": "team.a.player.2",
+              "events": [
+                {
+                  "sequence": 22,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 11,
+                  "playerId": "team.a.player.2",
+                  "runs": 1
+                }
+              ]
+            },
+            {
+              "runsOffBat": 4,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "boundary",
+              "sequenceNumber": 12,
+              "inningsSequence": 12,
+              "inningsNumber": 1,
+              "overNumber": 2,
+              "ballInOver": 6,
+              "strikerId": "team.a.player.3",
+              "nonStrikerId": "team.a.player.2",
+              "bowlerId": "team.b.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.arm_ball",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.7567790499599171,
+                  "y": 0.4394549297761623
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 21.657332243774025,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.25459102299374003,
+                "executionQuality": 0.42698589573798806,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.6610269961370461,
+                "contactScore": 0.7162638117175839,
+                "contactQuality": "okay",
+                "direction": -55.73316412689164,
+                "worldDirection": -55.73316412689164,
+                "sector": "mid_wicket",
+                "exitSpeed": 17.190689613127873,
+                "launchAngle": 8
+              },
+              "scoreAfter": 33,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.a.player.2",
+              "nonStrikerAfter": "team.a.player.3",
+              "events": [
+                {
+                  "sequence": 23,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 12,
+                  "playerId": "team.a.player.3",
+                  "runs": 4
+                },
+                {
+                  "sequence": 24,
+                  "type": "BOUNDARY",
+                  "inningsNumber": 1,
+                  "deliverySequence": 12,
+                  "playerId": "team.a.player.3"
+                },
+                {
+                  "sequence": 25,
+                  "type": "OVER_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 12
+                },
+                {
+                  "sequence": 26,
+                  "type": "INNINGS_COMPLETED",
+                  "inningsNumber": 1,
+                  "deliverySequence": 12
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "batting": [
+        {
+          "playerId": "team.a.player.1",
+          "runs": 9,
+          "balls": 3,
+          "fours": 0,
+          "sixes": 1,
+          "dismissal": "caught"
+        },
+        {
+          "playerId": "team.a.player.2",
+          "runs": 13,
+          "balls": 6,
+          "fours": 1,
+          "sixes": 1,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.3",
+          "runs": 11,
+          "balls": 3,
+          "fours": 2,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.4",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.5",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.6",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.7",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.8",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.9",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.10",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.11",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        }
+      ],
+      "bowling": [
+        {
+          "playerId": "team.b.player.6",
+          "legalBalls": 6,
+          "runs": 15,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 2
+        },
+        {
+          "playerId": "team.b.player.7",
+          "legalBalls": 6,
+          "runs": 18,
+          "wickets": 1,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 1
+        },
+        {
+          "playerId": "team.b.player.8",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.b.player.9",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.b.player.10",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.b.player.11",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        }
+      ]
+    },
+    {
+      "inningsNumber": 2,
+      "battingTeamId": "team.b",
+      "bowlingTeamId": "team.a",
+      "isSuperOver": false,
+      "maxBalls": 12,
+      "maxWickets": 5,
+      "runs": 28,
+      "wickets": 1,
+      "extras": 0,
+      "legalBalls": 12,
+      "target": 34,
+      "strikerId": "team.b.player.3",
+      "nonStrikerId": "team.b.player.2",
+      "currentBowlerId": null,
+      "nextBatterIndex": 3,
+      "completed": true,
+      "overs": [
+        {
+          "overNumber": 1,
+          "bowlerId": "team.a.player.6",
+          "runs": 17,
+          "conceded": 17,
+          "wickets": 0,
+          "legalBalls": 6,
+          "completed": true,
+          "balls": [
+            {
+              "runsOffBat": 2,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 2,
+              "distanceClass": "outfield",
+              "sequenceNumber": 13,
+              "inningsSequence": 1,
+              "inningsNumber": 2,
+              "overNumber": 1,
+              "ballInOver": 1,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.slower",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.7528608498258399,
+                  "y": 0.4085502036862123
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 27.554286748416366,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.3011330281484594,
+                "executionQuality": 0.41265471176274127,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.5476778372560108,
+                "contactScore": 0.6845905635756195,
+                "contactQuality": "okay",
+                "direction": -48.45448876195587,
+                "worldDirection": 48.45448876195587,
+                "sector": "mid_wicket",
+                "exitSpeed": 16.43051582109666,
+                "launchAngle": 8
+              },
+              "scoreAfter": 2,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 29,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 13,
+                  "playerId": "team.b.player.1",
+                  "runs": 2
+                }
+              ]
+            },
+            {
+              "runsOffBat": 4,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "boundary",
+              "sequenceNumber": 14,
+              "inningsSequence": 2,
+              "inningsNumber": 2,
+              "overNumber": 1,
+              "ballInOver": 2,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.yorker",
+                "intendedLine": "leg",
+                "intendedLength": "yorker",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.06
+                },
+                "actualTarget": {
+                  "x": 0.6626794368005741,
+                  "y": 0.06303069816948406
+                },
+                "actualLine": "leg",
+                "actualLength": "yorker",
+                "speed": 36.05955468695566,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.0607989757782868,
+                "executionQuality": 0.34855246728698397,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_leg_side",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.3050420668838255,
+                "contactScore": 0.48175275040253185,
+                "contactQuality": "poor",
+                "direction": -42.58220644663088,
+                "worldDirection": 42.58220644663088,
+                "sector": "mid_wicket",
+                "exitSpeed": 16.086687841441343,
+                "launchAngle": 38
+              },
+              "scoreAfter": 6,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 30,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 14,
+                  "playerId": "team.b.player.1",
+                  "runs": 4
+                },
+                {
+                  "sequence": 31,
+                  "type": "BOUNDARY",
+                  "inningsNumber": 2,
+                  "deliverySequence": 14,
+                  "playerId": "team.b.player.1"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 6,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "six",
+              "sequenceNumber": 15,
+              "inningsSequence": 3,
+              "inningsNumber": 2,
+              "overNumber": 1,
+              "ballInOver": 3,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.inswing",
+                "intendedLine": "outside_off",
+                "intendedLength": "full",
+                "target": {
+                  "x": 0.27,
+                  "y": 0.24
+                },
+                "actualTarget": {
+                  "x": 0.27149993394902894,
+                  "y": 0.2993951151584876
+                },
+                "actualLine": "outside_off",
+                "actualLength": "full",
+                "speed": 36.10827287645268,
+                "swing": 0.14488038634695496,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.28918463380352555,
+                "executionQuality": 0.3647783403753621,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_off_side",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.39770156364478876,
+                "contactScore": 0.6391165930271874,
+                "contactQuality": "okay",
+                "direction": 45.203160169813785,
+                "worldDirection": -45.203160169813785,
+                "sector": "cover",
+                "exitSpeed": 21.341381274363844,
+                "launchAngle": 38
+              },
+              "scoreAfter": 12,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 32,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 15,
+                  "playerId": "team.b.player.1",
+                  "runs": 6
+                },
+                {
+                  "sequence": 33,
+                  "type": "SIX",
+                  "inningsNumber": 2,
+                  "deliverySequence": 15,
+                  "playerId": "team.b.player.1"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 4,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "boundary",
+              "sequenceNumber": 16,
+              "inningsSequence": 4,
+              "inningsNumber": 2,
+              "overNumber": 1,
+              "ballInOver": 4,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.cutter",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.7146225186258682,
+                  "y": 0.4061333556665307
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 35.98535883403064,
+                "swing": 0,
+                "seam": 0.11830192797066638,
+                "spin": 0,
+                "bounce": 0.3909473588949534,
+                "executionQuality": 0.32449873513316213,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.5137685552205191,
+                "contactScore": 0.6752054384056412,
+                "contactQuality": "okay",
+                "direction": -52.920532635343264,
+                "worldDirection": 52.920532635343264,
+                "sector": "mid_wicket",
+                "exitSpeed": 16.205268124454594,
+                "launchAngle": 8
+              },
+              "scoreAfter": 16,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 34,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 16,
+                  "playerId": "team.b.player.1",
+                  "runs": 4
+                },
+                {
+                  "sequence": 35,
+                  "type": "BOUNDARY",
+                  "inningsNumber": 2,
+                  "deliverySequence": 16,
+                  "playerId": "team.b.player.1"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 0,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "infield",
+              "sequenceNumber": 17,
+              "inningsSequence": 5,
+              "inningsNumber": 2,
+              "overNumber": 1,
+              "ballInOver": 5,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.inswing",
+                "intendedLine": "outside_off",
+                "intendedLength": "full",
+                "target": {
+                  "x": 0.27,
+                  "y": 0.24
+                },
+                "actualTarget": {
+                  "x": 0.27493676231677455,
+                  "y": 0.32333628401874887
+                },
+                "actualLine": "outside_off",
+                "actualLength": "full",
+                "speed": 36.20948843296832,
+                "swing": 0.14843990817653466,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.31318475841663396,
+                "executionQuality": 0.3985829875558877,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.forward_defensive",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.5156502989949194,
+                "contactScore": 0.5280424364687712,
+                "contactQuality": "poor",
+                "direction": -0.4126690033939666,
+                "worldDirection": 0.4126690033939666,
+                "sector": "straight",
+                "exitSpeed": 6.1988881776205815,
+                "launchAngle": 8
+              },
+              "scoreAfter": 16,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 36,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 17,
+                  "playerId": "team.b.player.1",
+                  "runs": 0
+                }
+              ]
+            },
+            {
+              "runsOffBat": 1,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 1,
+              "distanceClass": "infield",
+              "sequenceNumber": 18,
+              "inningsSequence": 6,
+              "inningsNumber": 2,
+              "overNumber": 1,
+              "ballInOver": 6,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.6",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.fast.stock",
+                "intendedLine": "middle",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.55,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.5432655708652455,
+                  "y": 0.4694396995860564
+                },
+                "actualLine": "middle",
+                "actualLength": "good",
+                "speed": 36.75714129140165,
+                "swing": 0,
+                "seam": 0.07463735889605302,
+                "spin": 0,
+                "bounce": 0.4615782415265317,
+                "executionQuality": 0.5788212303476031,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.48004879095703995,
+                "contactScore": 0.6446717795497756,
+                "contactQuality": "okay",
+                "direction": -44.484095489163884,
+                "worldDirection": 44.484095489163884,
+                "sector": "mid_wicket",
+                "exitSpeed": 15.472445045084392,
+                "launchAngle": 8
+              },
+              "scoreAfter": 17,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 37,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 18,
+                  "playerId": "team.b.player.1",
+                  "runs": 1
+                },
+                {
+                  "sequence": 38,
+                  "type": "OVER_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 18
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "overNumber": 2,
+          "bowlerId": "team.a.player.7",
+          "runs": 11,
+          "conceded": 11,
+          "wickets": 1,
+          "legalBalls": 6,
+          "completed": true,
+          "balls": [
+            {
+              "runsOffBat": 6,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "six",
+              "sequenceNumber": 19,
+              "inningsSequence": 7,
+              "inningsNumber": 2,
+              "overNumber": 2,
+              "ballInOver": 1,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.stock_off",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.749735157726056,
+                  "y": 0.5494245508422168
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 21.879863756648927,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0.16112082056141563,
+                "bounce": 0.32157069297936836,
+                "executionQuality": 0.5487546734089405,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.9187167830702665,
+                "contactScore": 0.7682664583612804,
+                "contactQuality": "good",
+                "direction": -47.54144357534824,
+                "worldDirection": 47.54144357534824,
+                "sector": "mid_wicket",
+                "exitSpeed": 18.438779133899914,
+                "launchAngle": 8
+              },
+              "scoreAfter": 23,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 40,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 19,
+                  "playerId": "team.b.player.1",
+                  "runs": 6
+                },
+                {
+                  "sequence": 41,
+                  "type": "SIX",
+                  "inningsNumber": 2,
+                  "deliverySequence": 19,
+                  "playerId": "team.b.player.1"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 0,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "infield",
+              "sequenceNumber": 20,
+              "inningsSequence": 8,
+              "inningsNumber": 2,
+              "overNumber": 2,
+              "ballInOver": 2,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.top_spinner",
+                "intendedLine": "leg",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.69,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.6538363660032454,
+                  "y": 0.43472091878543795
+                },
+                "actualLine": "leg",
+                "actualLength": "good",
+                "speed": 21.787610238861074,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0.1558451728980376,
+                "bounce": 0.25336342592647676,
+                "executionQuality": 0.4981604453475591,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.flick",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.5764972413547401,
+                "contactScore": 0.6806712277610945,
+                "contactQuality": "okay",
+                "direction": -55.04976749920752,
+                "worldDirection": 55.04976749920752,
+                "sector": "mid_wicket",
+                "exitSpeed": 16.33644980188015,
+                "launchAngle": 8
+              },
+              "scoreAfter": 23,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 42,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 20,
+                  "playerId": "team.b.player.1",
+                  "runs": 0
+                }
+              ]
+            },
+            {
+              "runsOffBat": 0,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "infield",
+              "sequenceNumber": 21,
+              "inningsSequence": 9,
+              "inningsNumber": 2,
+              "overNumber": 2,
+              "ballInOver": 3,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.arm_ball",
+                "intendedLine": "outside_off",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.27,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.36173282420486974,
+                  "y": 0.43773034689587903
+                },
+                "actualLine": "off_stump",
+                "actualLength": "good",
+                "speed": 21.501234644094772,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.25176412256026875,
+                "executionQuality": 0.3405595441172053,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_off_side",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.9527932163058339,
+                "contactScore": 0.8028815018488986,
+                "contactQuality": "good",
+                "direction": 34.65735236797482,
+                "worldDirection": -34.65735236797482,
+                "sector": "cover",
+                "exitSpeed": 26.809819109738424,
+                "launchAngle": 38
+              },
+              "scoreAfter": 23,
+              "wicketsAfter": 0,
+              "strikerAfter": "team.b.player.1",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 43,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 21,
+                  "playerId": "team.b.player.1",
+                  "runs": 0
+                }
+              ]
+            },
+            {
+              "runsOffBat": 0,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": "caught",
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "infield",
+              "sequenceNumber": 22,
+              "inningsSequence": 10,
+              "inningsNumber": 2,
+              "overNumber": 2,
+              "ballInOver": 4,
+              "strikerId": "team.b.player.1",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.stock_off",
+                "intendedLine": "off_stump",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.43,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.37788184949589426,
+                  "y": 0.5216620752620115
+                },
+                "actualLine": "off_stump",
+                "actualLength": "good",
+                "speed": 21.631432074452253,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0.1469109613566169,
+                "bounce": 0.301854964728184,
+                "executionQuality": 0.4124129282272894,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.cover_drive",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.5767170621395306,
+                "contactScore": 0.6888721627470031,
+                "contactQuality": "okay",
+                "direction": 48.22975340160774,
+                "worldDirection": -48.22975340160774,
+                "sector": "cover",
+                "exitSpeed": 18.330371596575695,
+                "launchAngle": 8
+              },
+              "scoreAfter": 23,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.b.player.3",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 44,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 22,
+                  "playerId": "team.b.player.1",
+                  "runs": 0
+                },
+                {
+                  "sequence": 45,
+                  "type": "WICKET",
+                  "inningsNumber": 2,
+                  "deliverySequence": 22,
+                  "playerId": "team.b.player.1"
+                }
+              ]
+            },
+            {
+              "runsOffBat": 1,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 1,
+              "distanceClass": "infield",
+              "sequenceNumber": 23,
+              "inningsSequence": 11,
+              "inningsNumber": 2,
+              "overNumber": 2,
+              "ballInOver": 5,
+              "strikerId": "team.b.player.3",
+              "nonStrikerId": "team.b.player.2",
+              "bowlerId": "team.a.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.arm_ball",
+                "intendedLine": "off_stump",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.43,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.49575010860094804,
+                  "y": 0.44274161896436925
+                },
+                "actualLine": "middle",
+                "actualLength": "good",
+                "speed": 21.60802051462249,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.2559110971056853,
+                "executionQuality": 0.39967472780029556,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.cover_drive",
+                "aggression": 0.5,
+                "suitability": 0.5,
+                "timing": 0.7389261984238459,
+                "contactScore": 0.6000810761410726,
+                "contactQuality": "okay",
+                "direction": 45.94115301744314,
+                "worldDirection": 45.94115301744314,
+                "sector": "cover",
+                "exitSpeed": 15.967707375306839,
+                "launchAngle": 8
+              },
+              "scoreAfter": 24,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.b.player.2",
+              "nonStrikerAfter": "team.b.player.3",
+              "events": [
+                {
+                  "sequence": 46,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 23,
+                  "playerId": "team.b.player.3",
+                  "runs": 1
+                }
+              ]
+            },
+            {
+              "runsOffBat": 4,
+              "extras": 0,
+              "extraType": null,
+              "wicketType": null,
+              "legalDelivery": true,
+              "completedRuns": 0,
+              "distanceClass": "boundary",
+              "sequenceNumber": 24,
+              "inningsSequence": 12,
+              "inningsNumber": 2,
+              "overNumber": 2,
+              "ballInOver": 6,
+              "strikerId": "team.b.player.2",
+              "nonStrikerId": "team.b.player.3",
+              "bowlerId": "team.a.player.7",
+              "delivery": {
+                "deliveryDefinitionId": "delivery.spin.arm_ball",
+                "intendedLine": "off_stump",
+                "intendedLength": "good",
+                "target": {
+                  "x": 0.43,
+                  "y": 0.48
+                },
+                "actualTarget": {
+                  "x": 0.5040393249865333,
+                  "y": 0.5528788848981114
+                },
+                "actualLine": "middle",
+                "actualLength": "good",
+                "speed": 21.550961711554212,
+                "swing": 0,
+                "seam": 0,
+                "spin": 0,
+                "bounce": 0.3187281674283902,
+                "executionQuality": 0.3684062044247809,
+                "noBall": false
+              },
+              "shot": {
+                "shotId": "shot.lofted_straight",
+                "aggression": 0.5,
+                "suitability": 1,
+                "timing": 0.824357653463526,
+                "contactScore": 0.76567780962681,
+                "contactQuality": "good",
+                "direction": -1.9238710701116357,
+                "worldDirection": -1.9238710701116357,
+                "sector": "straight",
+                "exitSpeed": 24.768528624712864,
+                "launchAngle": 38
+              },
+              "scoreAfter": 28,
+              "wicketsAfter": 1,
+              "strikerAfter": "team.b.player.3",
+              "nonStrikerAfter": "team.b.player.2",
+              "events": [
+                {
+                  "sequence": 47,
+                  "type": "BALL_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 24,
+                  "playerId": "team.b.player.2",
+                  "runs": 4
+                },
+                {
+                  "sequence": 48,
+                  "type": "BOUNDARY",
+                  "inningsNumber": 2,
+                  "deliverySequence": 24,
+                  "playerId": "team.b.player.2"
+                },
+                {
+                  "sequence": 49,
+                  "type": "OVER_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 24
+                },
+                {
+                  "sequence": 50,
+                  "type": "INNINGS_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 24
+                },
+                {
+                  "sequence": 51,
+                  "type": "MATCH_COMPLETED",
+                  "inningsNumber": 2,
+                  "deliverySequence": 24
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "batting": [
+        {
+          "playerId": "team.b.player.1",
+          "runs": 23,
+          "balls": 10,
+          "fours": 2,
+          "sixes": 2,
+          "dismissal": "caught"
+        },
+        {
+          "playerId": "team.b.player.2",
+          "runs": 4,
+          "balls": 1,
+          "fours": 1,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.3",
+          "runs": 1,
+          "balls": 1,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.4",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.5",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.6",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.7",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.8",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.9",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.10",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.11",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        }
+      ],
+      "bowling": [
+        {
+          "playerId": "team.a.player.6",
+          "legalBalls": 6,
+          "runs": 17,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 1
+        },
+        {
+          "playerId": "team.a.player.7",
+          "legalBalls": 6,
+          "runs": 11,
+          "wickets": 1,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 3
+        },
+        {
+          "playerId": "team.a.player.8",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.a.player.9",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.a.player.10",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.a.player.11",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        }
+      ]
+    }
+  ],
+  "currentInningsIndex": 1,
+  "sequence": 24,
+  "events": [
+    {
+      "sequence": 1,
+      "type": "MATCH_STARTED",
+      "inningsNumber": 0,
+      "deliverySequence": 0
+    },
+    {
+      "sequence": 2,
+      "type": "TOSS_COMPLETED",
+      "inningsNumber": 0,
+      "deliverySequence": 0
+    },
+    {
+      "sequence": 3,
+      "type": "INNINGS_STARTED",
+      "inningsNumber": 1,
+      "deliverySequence": 0
+    },
+    {
+      "sequence": 4,
+      "type": "OVER_STARTED",
+      "inningsNumber": 1,
+      "deliverySequence": 0,
+      "playerId": "team.b.player.6"
+    },
+    {
+      "sequence": 5,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 1,
+      "playerId": "team.a.player.1",
+      "runs": 3
+    },
+    {
+      "sequence": 6,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 2,
+      "playerId": "team.a.player.2",
+      "runs": 0
+    },
+    {
+      "sequence": 7,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 3,
+      "playerId": "team.a.player.2",
+      "runs": 4
+    },
+    {
+      "sequence": 8,
+      "type": "BOUNDARY",
+      "inningsNumber": 1,
+      "deliverySequence": 3,
+      "playerId": "team.a.player.2"
+    },
+    {
+      "sequence": 9,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 4,
+      "playerId": "team.a.player.2",
+      "runs": 0
+    },
+    {
+      "sequence": 10,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 5,
+      "playerId": "team.a.player.2",
+      "runs": 2
+    },
+    {
+      "sequence": 11,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 6,
+      "playerId": "team.a.player.2",
+      "runs": 6
+    },
+    {
+      "sequence": 12,
+      "type": "SIX",
+      "inningsNumber": 1,
+      "deliverySequence": 6,
+      "playerId": "team.a.player.2"
+    },
+    {
+      "sequence": 13,
+      "type": "OVER_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 6
+    },
+    {
+      "sequence": 14,
+      "type": "OVER_STARTED",
+      "inningsNumber": 1,
+      "deliverySequence": 6,
+      "playerId": "team.b.player.7"
+    },
+    {
+      "sequence": 15,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 7,
+      "playerId": "team.a.player.1",
+      "runs": 6
+    },
+    {
+      "sequence": 16,
+      "type": "SIX",
+      "inningsNumber": 1,
+      "deliverySequence": 7,
+      "playerId": "team.a.player.1"
+    },
+    {
+      "sequence": 17,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 8,
+      "playerId": "team.a.player.1",
+      "runs": 0
+    },
+    {
+      "sequence": 18,
+      "type": "WICKET",
+      "inningsNumber": 1,
+      "deliverySequence": 8,
+      "playerId": "team.a.player.1"
+    },
+    {
+      "sequence": 19,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 9,
+      "playerId": "team.a.player.3",
+      "runs": 4
+    },
+    {
+      "sequence": 20,
+      "type": "BOUNDARY",
+      "inningsNumber": 1,
+      "deliverySequence": 9,
+      "playerId": "team.a.player.3"
+    },
+    {
+      "sequence": 21,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 10,
+      "playerId": "team.a.player.3",
+      "runs": 3
+    },
+    {
+      "sequence": 22,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 11,
+      "playerId": "team.a.player.2",
+      "runs": 1
+    },
+    {
+      "sequence": 23,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 12,
+      "playerId": "team.a.player.3",
+      "runs": 4
+    },
+    {
+      "sequence": 24,
+      "type": "BOUNDARY",
+      "inningsNumber": 1,
+      "deliverySequence": 12,
+      "playerId": "team.a.player.3"
+    },
+    {
+      "sequence": 25,
+      "type": "OVER_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 12
+    },
+    {
+      "sequence": 26,
+      "type": "INNINGS_COMPLETED",
+      "inningsNumber": 1,
+      "deliverySequence": 12
+    },
+    {
+      "sequence": 27,
+      "type": "INNINGS_STARTED",
+      "inningsNumber": 2,
+      "deliverySequence": 12
+    },
+    {
+      "sequence": 28,
+      "type": "OVER_STARTED",
+      "inningsNumber": 2,
+      "deliverySequence": 12,
+      "playerId": "team.a.player.6"
+    },
+    {
+      "sequence": 29,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 13,
+      "playerId": "team.b.player.1",
+      "runs": 2
+    },
+    {
+      "sequence": 30,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 14,
+      "playerId": "team.b.player.1",
+      "runs": 4
+    },
+    {
+      "sequence": 31,
+      "type": "BOUNDARY",
+      "inningsNumber": 2,
+      "deliverySequence": 14,
+      "playerId": "team.b.player.1"
+    },
+    {
+      "sequence": 32,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 15,
+      "playerId": "team.b.player.1",
+      "runs": 6
+    },
+    {
+      "sequence": 33,
+      "type": "SIX",
+      "inningsNumber": 2,
+      "deliverySequence": 15,
+      "playerId": "team.b.player.1"
+    },
+    {
+      "sequence": 34,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 16,
+      "playerId": "team.b.player.1",
+      "runs": 4
+    },
+    {
+      "sequence": 35,
+      "type": "BOUNDARY",
+      "inningsNumber": 2,
+      "deliverySequence": 16,
+      "playerId": "team.b.player.1"
+    },
+    {
+      "sequence": 36,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 17,
+      "playerId": "team.b.player.1",
+      "runs": 0
+    },
+    {
+      "sequence": 37,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 18,
+      "playerId": "team.b.player.1",
+      "runs": 1
+    },
+    {
+      "sequence": 38,
+      "type": "OVER_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 18
+    },
+    {
+      "sequence": 39,
+      "type": "OVER_STARTED",
+      "inningsNumber": 2,
+      "deliverySequence": 18,
+      "playerId": "team.a.player.7"
+    },
+    {
+      "sequence": 40,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 19,
+      "playerId": "team.b.player.1",
+      "runs": 6
+    },
+    {
+      "sequence": 41,
+      "type": "SIX",
+      "inningsNumber": 2,
+      "deliverySequence": 19,
+      "playerId": "team.b.player.1"
+    },
+    {
+      "sequence": 42,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 20,
+      "playerId": "team.b.player.1",
+      "runs": 0
+    },
+    {
+      "sequence": 43,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 21,
+      "playerId": "team.b.player.1",
+      "runs": 0
+    },
+    {
+      "sequence": 44,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 22,
+      "playerId": "team.b.player.1",
+      "runs": 0
+    },
+    {
+      "sequence": 45,
+      "type": "WICKET",
+      "inningsNumber": 2,
+      "deliverySequence": 22,
+      "playerId": "team.b.player.1"
+    },
+    {
+      "sequence": 46,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 23,
+      "playerId": "team.b.player.3",
+      "runs": 1
+    },
+    {
+      "sequence": 47,
+      "type": "BALL_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 24,
+      "playerId": "team.b.player.2",
+      "runs": 4
+    },
+    {
+      "sequence": 48,
+      "type": "BOUNDARY",
+      "inningsNumber": 2,
+      "deliverySequence": 24,
+      "playerId": "team.b.player.2"
+    },
+    {
+      "sequence": 49,
+      "type": "OVER_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 24
+    },
+    {
+      "sequence": 50,
+      "type": "INNINGS_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 24
+    },
+    {
+      "sequence": 51,
+      "type": "MATCH_COMPLETED",
+      "inningsNumber": 2,
+      "deliverySequence": 24
+    }
+  ],
+  "result": {
+    "type": "win",
+    "winnerTeamId": "team.a",
+    "margin": 5,
+    "marginType": "runs",
+    "superOver": false
+  }
+}

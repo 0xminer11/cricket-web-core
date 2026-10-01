@@ -150,6 +150,14 @@ interface PgErrorShape {
   errno?: unknown;
 }
 
+/**
+ * Driver error codes are 5-character SQLSTATEs ('23505') or bare Node system errors
+ * ('ECONNREFUSED'). Application errors also carry a string `code` (e.g. 'RATE_LIMITED'); the
+ * pattern keeps those from being mistaken for database failures when they are thrown inside a
+ * transaction callback.
+ */
+const DRIVER_CODE = /^(?:[0-9A-Z]{5}|E[A-Z]+)$/;
+
 /** Find the driver-level error (Drizzle wraps pg errors as `cause`). */
 function findDriverError(error: unknown): PgErrorShape | undefined {
   let current: unknown = error;
@@ -159,7 +167,8 @@ function findDriverError(error: unknown): PgErrorShape | undefined {
     depth += 1
   ) {
     const candidate = current as PgErrorShape & { cause?: unknown };
-    if (typeof candidate.code === 'string') return candidate;
+    if (typeof candidate.code === 'string' && DRIVER_CODE.test(candidate.code))
+      return candidate;
     current = candidate.cause;
   }
   return undefined;

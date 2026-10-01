@@ -1,6 +1,6 @@
 # THE CRICKETER
 
-Career cricket game. Module 0 defines the game; Module 1 provides repository, applications and development infrastructure; Module 2 adds the PostgreSQL persistence layer (schema, migrations, repositories, ledger, seeds, tests). Gameplay, authentication, career flows and payments are intentionally future work.
+Career cricket game. Module 0 defines the game; Module 1 provides repository, applications and development infrastructure; Module 2 adds the PostgreSQL persistence layer (schema, migrations, repositories, ledger, seeds, tests); Module 3 adds authentication (guest accounts, email/password, sessions, recovery, authorization foundation); Module 4 adds cricketer creation (a five-step wizard, server-derived starting state, atomic idempotent creation, starter kit and wallet). Module 5 adds the 3D cricketer viewer and dressing room (rigged GLB character, modular kit, appearance editing, asset pipeline and validator; placeholder art). Module 6 adds the Career Home hub (`/career`: player header, next match, readiness, progression, fixtures, objectives, history, training and match-preparation entry points). Module 7 adds training and skill progression (`/training`: 25 drills plus rest, server-authoritative Skill XP, attribute points, Player XP and levels, fatigue, coin costs through the wallet, history, a pure TrainingEngine and a balance simulator). Match gameplay, the career engine and payments are intentionally future work.
 
 ## Requirements and setup
 
@@ -17,7 +17,7 @@ pnpm db:generate
 pnpm dev
 ```
 
-Preserve an existing .env instead of overwriting it. The checked-in connection examples are only for loopback local services. JWT/session secrets are not needed until authentication is implemented.
+Preserve an existing .env instead of overwriting it. The checked-in connection examples are only for loopback local services. Authentication uses opaque server-side sessions, so there are no JWT/session signing secrets; development runs over HTTP with `AUTH_COOKIE_SECURE=false`, while staging/production require Secure cookies and explicit `AUTH_TRUSTED_ORIGINS` (see [docs/auth](docs/auth/overview.md)).
 
 | Application   | Local URL                    |
 | ------------- | ---------------------------- |
@@ -61,7 +61,19 @@ pnpm db:check
 pnpm db:studio
 ```
 
-Drizzle generates reviewed SQL in packages/database/migrations (30 tables, plus integrity triggers). Test databases are created and dropped automatically as cricketer_test_*; the developer database is never touched by tests. Studio is a local development utility. Never reset production; see [docs/database](docs/database/overview.md) for the schema, migration policy, transactions, ledger, backup/recovery and the Module 2 acceptance matrix.
+Drizzle generates reviewed SQL in packages/database/migrations (33 tables, plus integrity triggers). Test databases are created and dropped automatically as cricketer_test_*; the developer database is never touched by tests. Studio is a local development utility. Never reset production; see [docs/database](docs/database/overview.md) for the schema, migration policy, transactions, ledger, backup/recovery and the Module 2 acceptance matrix.
+
+3D character (Module 5): after creating a cricketer open http://localhost:3300/player (viewer) and /dressing-room. In development the dressing room has a **Dev: grant sample gear** button so alternatives exist before a shop does. `pnpm assets:validate` checks the character assets.
+
+Training (Module 7): open http://localhost:3300/training (or press TRAIN on the Career Home). `pnpm simulate:training` prints the progression/economy balance report (see [docs/training/balancing.md](docs/training/balancing.md)).
+
+Authentication (Module 3): run `pnpm db:migrate`, `pnpm dev`, then open http://localhost:3300 and choose Continue as Guest. In development, verification and password-reset links are printed in the API log and listed at http://localhost:4300/api/v1/dev/emails (loopback only). Maintenance commands:
+
+```bash
+pnpm auth:cleanup-sessions [days]            # delete long-dead sessions/tokens (schedule daily)
+pnpm auth:create-test-user <email> <password> # DEVELOPMENT ONLY: verified account, refuses staging/production
+pnpm auth:benchmark-hash                      # time Argon2id on this machine to tune AUTH_ARGON2_*
+```
 
 After pnpm build, production-output smoke tests can use:
 
@@ -87,7 +99,7 @@ apps contains web, api, game-server and admin. packages contains game-core, matc
 
 Use public @the-cricketer/* exports. Domain code stays rendering-independent. Transport contracts belong to shared-types; ORM models belong to database. Keep rules out of controllers/components. No explicit any, secrets, authoritative browser progression or cross-application imports. Every change must pass CI: frozen install, lint, formatting, typecheck, integration tests, build and browser smoke tests. Commit migrations and lockfile changes intentionally.
 
-See [architecture overview](docs/architecture/overview.md), [dependency rules](docs/architecture/dependency-rules.md), [environment](docs/architecture/environment.md), [testing](docs/architecture/testing.md), and [Module 0 integration notes](docs/architecture/module-0-integration-notes.md).
+See [Training docs](docs/training/overview.md), [Career Home docs](docs/career-home/overview.md), [3D character docs](docs/character-3d/overview.md) (viewer, asset pipeline, dressing room, owner asset guide), [player creation docs](docs/player-creation/overview.md), [authentication docs](docs/auth/overview.md) (threat model, sessions, CSRF, recovery, testing), [architecture overview](docs/architecture/overview.md), [dependency rules](docs/architecture/dependency-rules.md), [environment](docs/architecture/environment.md), [testing](docs/architecture/testing.md), and [Module 0 integration notes](docs/architecture/module-0-integration-notes.md).
 
 ## Troubleshooting
 
@@ -97,8 +109,10 @@ See [architecture overview](docs/architecture/overview.md), [dependency rules](d
 - Missing workspace dist files: run pnpm build; standard dev/test/typecheck commands build dependencies automatically.
 - Homepage says unavailable: check both health endpoints and NEXT_PUBLIC_* URLs; the page does not fake health.
 - Production fails environment validation: provide explicit CORS origins and NODE_ENV=production for staging/production.
-- Missing asset warnings: approved art is not supplied yet; definitions remain valid and no heavy assets are loaded.
+- Placeholder 3D art: Module 5 ships generated TEMPORARY PLACEHOLDER models; run `pnpm assets:generate` to rebuild them and `pnpm assets:validate` to check them. Final art: see docs/character-3d/owner-asset-guide.md.
 
 ## Roadmap
 
-Module 2: database schema/repositories. Module 3: authentication/authorization. Module 4: create cricketer. Module 5: lazy-loaded character viewer. Module 6: career dashboard. Module 8+: deterministic cricket engine. Later: authoritative multiplayer, protected admin and versioned LiveOps. Module 1 does not begin these implementations.
+Module 2: database schema/repositories. Module 3: authentication/authorization. Module 4: create cricketer. Module 5: lazy-loaded character viewer (done). Module 6: Career Home (done). Module 7: Training (done). Module 8: deterministic headless cricket engine (see [engine documentation](docs/match-engine/overview.md)). Later: authoritative multiplayer, protected admin and versioned LiveOps. Module 1 does not begin these implementations.
+
+Headless match tools: `pnpm simulate:match`, `pnpm simulate:deliveries`, and `pnpm simulate:matches --format=5over --count=1000`. See [Module 8 validation and balance reports](docs/match-engine/MODULE-8-COMPLETION-REPORT.md).

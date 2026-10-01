@@ -3,6 +3,7 @@ import { Card, Badge } from '@the-cricketer/ui';
 import { versions } from '@the-cricketer/config';
 import { MATCH_FORMATS } from '@the-cricketer/game-core';
 import { getHealth } from '../services/api';
+import { EntryPanel } from '../features/auth/components/panels';
 export const dynamic = 'force-dynamic';
 async function status(url: string | undefined): Promise<string> {
   if (!url) return 'Not configured';
@@ -23,7 +24,10 @@ export default async function Home() {
       <Badge>Development Build</Badge>
       <h1>THE CRICKETER</h1>
       <p>Career Cricket Game</p>
-      <h2>Module 1 Infrastructure Ready</h2>
+      <Card>
+        <EntryPanel />
+      </Card>
+      <h2>Development build</h2>
       <p>
         The engineering foundation is running. Career systems and cricket
         gameplay arrive in future modules.

@@ -1,0 +1,37 @@
+{
+  "count": 10000,
+  "distribution": {
+    "1": 2671,
+    "2": 867,
+    "3": 160,
+    "4": 1498,
+    "6": 584,
+    "dot": 3224,
+    "wicket": 764,
+    "extras": 232
+  },
+  "percentages": {
+    "1": 26.71,
+    "2": 8.67,
+    "3": 1.6,
+    "4": 14.98,
+    "6": 5.84,
+    "dot": 32.24,
+    "wicket": 7.64,
+    "extras": 2.32
+  },
+  "contacts": {
+    "okay": 6147,
+    "good": 2343,
+    "poor": 1439,
+    "edge": 71
+  },
+  "runsPerBall": 1.4989,
+  "meanSeam": 0.027534357138931098,
+  "meanSpin": 0,
+  "meanSpeed": 35.0937828426226,
+  "runtimeMs": 33.96,
+  "heapDeltaBytes": 191016,
+  "gcMeasured": true,
+  "node": "v24.21.0"
+}

@@ -1,0 +1,16 @@
+{
+  "formatId": "format.5_over",
+  "count": 1000,
+  "average": 47.382,
+  "median": 47,
+  "p10": 34,
+  "p90": 61,
+  "averageWickets": 2.128,
+  "chaseWins": 520,
+  "ties": 1,
+  "superOvers": 34,
+  "runtimeMs": 2099.17,
+  "heapDeltaBytes": 765560,
+  "gcMeasured": true,
+  "node": "v24.21.0"
+}

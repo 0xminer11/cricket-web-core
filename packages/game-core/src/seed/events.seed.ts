@@ -1,13 +1,298 @@
 import type { CareerEvent } from '../types/career.types';
 export const CAREER_EVENTS: readonly CareerEvent[] = [
-  { eventId:'career_event.coach.extra_nets', title:'Extra Nets Session', description:'The coach offers an optional focused session before selection week.', type:'coach', requirements:['fatigue<=65'], choices:[{choiceId:'train',label:'Take the session',effects:[{type:'reputation',delta:3},{type:'confidence',delta:2}]},{choiceId:'rest',label:'Rest and recover',effects:[{type:'professionalism',delta:1}]}], weight:10, cooldownMatches:6, careerTiers:['academy','club','district'], repeatable:true },
-  { eventId:'career_event.media.form_question', title:'Form Question', description:'A reporter asks about a recent dip in form.', type:'media', requirements:['careerMatches>=5'], choices:[{choiceId:'accountable',label:'Take responsibility',effects:[{type:'professionalism',delta:3},{type:'confidence',delta:-1},{type:'fans',delta:40}]},{choiceId:'defiant',label:'Back yourself publicly',effects:[{type:'confidence',delta:3},{type:'professionalism',delta:-1},{type:'fans',delta:70}]}], weight:8, cooldownMatches:10, careerTiers:['club','district','domestic','franchise','international'], repeatable:true },
-  { eventId:'career_event.selection.reserve_call', title:'Reserve Squad Call', description:'Selectors invite you to train with a stronger squad.', type:'selection', requirements:['selectorInterest>=55'], choices:[{choiceId:'accept',label:'Join the camp',effects:[{type:'selector_interest',delta:5},{type:'reputation',delta:4}]},{choiceId:'decline',label:'Stay with current team',effects:[{type:'team_mindset',delta:3},{type:'selector_interest',delta:-2}]}], weight:5, cooldownMatches:20, careerTiers:['district','domestic'], repeatable:false },
-  { eventId:'career_event.contract.role_offer', title:'Role-based Contract Offer', description:'A club offers a contract built around your current role.', type:'contract', requirements:['reputation>=80'], choices:[{choiceId:'negotiate',label:'Ask for clearer role',effects:[{type:'confidence',delta:1},{type:'professionalism',delta:1}]},{choiceId:'accept',label:'Accept terms',effects:[{type:'reputation',delta:2},{type:'coins',delta:400}]}], weight:5, cooldownMatches:20, careerTiers:['club','district','domestic','franchise'], repeatable:true },
-  { eventId:'career_event.sponsor.local_gear', title:'Local Gear Sponsor', description:'A fictional sports company offers a small gear partnership.', type:'sponsor', requirements:['fans>=1500'], choices:[{choiceId:'accept',label:'Accept campaign',effects:[{type:'coins',delta:600},{type:'fans',delta:100},{type:'professionalism',delta:1}]},{choiceId:'decline',label:'Stay independent',effects:[{type:'confidence',delta:1}]}], weight:4, cooldownMatches:18, careerTiers:['district','domestic','franchise'], repeatable:true },
-  { eventId:'career_event.team.young_player', title:'Help a Teammate', description:'A younger teammate asks for advice before a match.', type:'team', requirements:['careerMatches>=8'], choices:[{choiceId:'help',label:'Spend time helping',effects:[{type:'team_mindset',delta:4},{type:'leadership',delta:2}]},{choiceId:'focus',label:'Focus on your own preparation',effects:[{type:'discipline',delta:1},{type:'team_mindset',delta:-1}]}], weight:9, cooldownMatches:8, careerTiers:['club','district','domestic','franchise','international'], repeatable:true },
-  { eventId:'career_event.rivalry.challenge', title:'Rivalry Challenge', description:'A rival talks up the next matchup.', type:'rivalry', requirements:['careerMatches>=10'], choices:[{choiceId:'calm',label:'Stay composed',effects:[{type:'professionalism',delta:2},{type:'confidence',delta:1}]},{choiceId:'respond',label:'Respond confidently',effects:[{type:'confidence',delta:3},{type:'fans',delta:80},{type:'professionalism',delta:-1}]}], weight:7, cooldownMatches:12, careerTiers:['district','domestic','franchise','international'], repeatable:true },
-  { eventId:'career_event.milestone.first_fifty', title:'First Fifty Recognition', description:'Your first major batting milestone gets local attention.', type:'milestone', requirements:['achievement.first_fifty'], choices:[{choiceId:'team_credit',label:'Credit the team',effects:[{type:'fans',delta:250},{type:'team_mindset',delta:3}]},{choiceId:'personal_goal',label:'Set a bigger personal target',effects:[{type:'fans',delta:220},{type:'confidence',delta:3}]}], weight:1, cooldownMatches:999, careerTiers:['academy','club','district','domestic','franchise','international'], repeatable:false },
-  { eventId:'career_event.coach.role_change', title:'Role Experiment', description:'The coach suggests trying a nearby role.', type:'coach', requirements:['playerLevel>=8'], choices:[{choiceId:'try',label:'Try the new role',effects:[{type:'reputation',delta:2},{type:'confidence',delta:1}]},{choiceId:'specialise',label:'Stay specialised',effects:[{type:'discipline',delta:2}]}], weight:4, cooldownMatches:15, careerTiers:['academy','club','district','domestic'], repeatable:true },
-  { eventId:'career_event.media.breakout', title:'Breakout Interview', description:'A strong run of performances brings a bigger interview opportunity.', type:'media', requirements:['form>=70','fans>=5000'], choices:[{choiceId:'humble',label:'Keep expectations measured',effects:[{type:'professionalism',delta:3},{type:'fans',delta:300}]},{choiceId:'ambitious',label:'Declare big ambitions',effects:[{type:'confidence',delta:3},{type:'fans',delta:450},{type:'professionalism',delta:-1}]}], weight:3, cooldownMatches:20, careerTiers:['domestic','franchise','international'], repeatable:true },
+  {
+    eventId: 'career_event.coach.extra_nets',
+    title: 'Extra Nets Session',
+    description:
+      'The coach offers an optional focused session before selection week.',
+    type: 'coach',
+    requirements: ['fatigue<=65'],
+    choices: [
+      {
+        choiceId: 'train',
+        label: 'Take the session',
+        effects: [
+          { type: 'reputation', delta: 3 },
+          { type: 'confidence', delta: 2 },
+        ],
+      },
+      {
+        choiceId: 'rest',
+        label: 'Rest and recover',
+        effects: [{ type: 'professionalism', delta: 1 }],
+      },
+    ],
+    weight: 10,
+    cooldownMatches: 6,
+    careerTiers: ['academy', 'club', 'district'],
+    repeatable: true,
+  },
+  {
+    eventId: 'career_event.media.form_question',
+    title: 'Form Question',
+    description: 'A reporter asks about a recent dip in form.',
+    type: 'media',
+    requirements: ['careerMatches>=5'],
+    choices: [
+      {
+        choiceId: 'accountable',
+        label: 'Take responsibility',
+        effects: [
+          { type: 'professionalism', delta: 3 },
+          { type: 'confidence', delta: -1 },
+          { type: 'fans', delta: 40 },
+        ],
+      },
+      {
+        choiceId: 'defiant',
+        label: 'Back yourself publicly',
+        effects: [
+          { type: 'confidence', delta: 3 },
+          { type: 'professionalism', delta: -1 },
+          { type: 'fans', delta: 70 },
+        ],
+      },
+    ],
+    weight: 8,
+    cooldownMatches: 10,
+    careerTiers: ['club', 'district', 'domestic', 'franchise', 'international'],
+    repeatable: true,
+  },
+  {
+    eventId: 'career_event.selection.reserve_call',
+    title: 'Reserve Squad Call',
+    description: 'Selectors invite you to train with a stronger squad.',
+    type: 'selection',
+    requirements: ['selectorInterest>=55'],
+    choices: [
+      {
+        choiceId: 'accept',
+        label: 'Join the camp',
+        effects: [
+          { type: 'selector_interest', delta: 5 },
+          { type: 'reputation', delta: 4 },
+        ],
+      },
+      {
+        choiceId: 'decline',
+        label: 'Stay with current team',
+        effects: [
+          { type: 'team_mindset', delta: 3 },
+          { type: 'selector_interest', delta: -2 },
+        ],
+      },
+    ],
+    weight: 5,
+    cooldownMatches: 20,
+    careerTiers: ['district', 'domestic'],
+    repeatable: false,
+  },
+  {
+    eventId: 'career_event.contract.role_offer',
+    title: 'Role-based Contract Offer',
+    description: 'A club offers a contract built around your current role.',
+    type: 'contract',
+    requirements: ['reputation>=80'],
+    choices: [
+      {
+        choiceId: 'negotiate',
+        label: 'Ask for clearer role',
+        effects: [
+          { type: 'confidence', delta: 1 },
+          { type: 'professionalism', delta: 1 },
+        ],
+      },
+      {
+        choiceId: 'accept',
+        label: 'Accept terms',
+        effects: [
+          { type: 'reputation', delta: 2 },
+          { type: 'coins', delta: 400 },
+        ],
+      },
+    ],
+    weight: 5,
+    cooldownMatches: 20,
+    careerTiers: ['club', 'district', 'domestic', 'franchise'],
+    repeatable: true,
+  },
+  {
+    eventId: 'career_event.sponsor.local_gear',
+    title: 'Local Gear Sponsor',
+    description: 'A fictional sports company offers a small gear partnership.',
+    type: 'sponsor',
+    requirements: ['fans>=1500'],
+    choices: [
+      {
+        choiceId: 'accept',
+        label: 'Accept campaign',
+        effects: [
+          { type: 'coins', delta: 600 },
+          { type: 'fans', delta: 100 },
+          { type: 'professionalism', delta: 1 },
+        ],
+      },
+      {
+        choiceId: 'decline',
+        label: 'Stay independent',
+        effects: [{ type: 'confidence', delta: 1 }],
+      },
+    ],
+    weight: 4,
+    cooldownMatches: 18,
+    careerTiers: ['district', 'domestic', 'franchise'],
+    repeatable: true,
+  },
+  {
+    eventId: 'career_event.team.young_player',
+    title: 'Help a Teammate',
+    description: 'A younger teammate asks for advice before a match.',
+    type: 'team',
+    requirements: ['careerMatches>=8'],
+    choices: [
+      {
+        choiceId: 'help',
+        label: 'Spend time helping',
+        effects: [
+          { type: 'team_mindset', delta: 4 },
+          { type: 'leadership', delta: 2 },
+        ],
+      },
+      {
+        choiceId: 'focus',
+        label: 'Focus on your own preparation',
+        effects: [
+          { type: 'discipline', delta: 1 },
+          { type: 'team_mindset', delta: -1 },
+        ],
+      },
+    ],
+    weight: 9,
+    cooldownMatches: 8,
+    careerTiers: ['club', 'district', 'domestic', 'franchise', 'international'],
+    repeatable: true,
+  },
+  {
+    eventId: 'career_event.rivalry.challenge',
+    title: 'Rivalry Challenge',
+    description: 'A rival talks up the next matchup.',
+    type: 'rivalry',
+    requirements: ['careerMatches>=10'],
+    choices: [
+      {
+        choiceId: 'calm',
+        label: 'Stay composed',
+        effects: [
+          { type: 'professionalism', delta: 2 },
+          { type: 'confidence', delta: 1 },
+        ],
+      },
+      {
+        choiceId: 'respond',
+        label: 'Respond confidently',
+        effects: [
+          { type: 'confidence', delta: 3 },
+          { type: 'fans', delta: 80 },
+          { type: 'professionalism', delta: -1 },
+        ],
+      },
+    ],
+    weight: 7,
+    cooldownMatches: 12,
+    careerTiers: ['district', 'domestic', 'franchise', 'international'],
+    repeatable: true,
+  },
+  {
+    eventId: 'career_event.milestone.first_fifty',
+    title: 'First Fifty Recognition',
+    description: 'Your first major batting milestone gets local attention.',
+    type: 'milestone',
+    requirements: ['achievement.first_fifty'],
+    choices: [
+      {
+        choiceId: 'team_credit',
+        label: 'Credit the team',
+        effects: [
+          { type: 'fans', delta: 250 },
+          { type: 'team_mindset', delta: 3 },
+        ],
+      },
+      {
+        choiceId: 'personal_goal',
+        label: 'Set a bigger personal target',
+        effects: [
+          { type: 'fans', delta: 220 },
+          { type: 'confidence', delta: 3 },
+        ],
+      },
+    ],
+    weight: 1,
+    cooldownMatches: 999,
+    careerTiers: [
+      'academy',
+      'club',
+      'district',
+      'domestic',
+      'franchise',
+      'international',
+    ],
+    repeatable: false,
+  },
+  {
+    eventId: 'career_event.coach.role_change',
+    title: 'Role Experiment',
+    description: 'The coach suggests trying a nearby role.',
+    type: 'coach',
+    requirements: ['playerLevel>=8'],
+    choices: [
+      {
+        choiceId: 'try',
+        label: 'Try the new role',
+        effects: [
+          { type: 'reputation', delta: 2 },
+          { type: 'confidence', delta: 1 },
+        ],
+      },
+      {
+        choiceId: 'specialise',
+        label: 'Stay specialised',
+        effects: [{ type: 'discipline', delta: 2 }],
+      },
+    ],
+    weight: 4,
+    cooldownMatches: 15,
+    careerTiers: ['academy', 'club', 'district', 'domestic'],
+    repeatable: true,
+  },
+  {
+    eventId: 'career_event.media.breakout',
+    title: 'Breakout Interview',
+    description:
+      'A strong run of performances brings a bigger interview opportunity.',
+    type: 'media',
+    requirements: ['form>=70', 'fans>=5000'],
+    choices: [
+      {
+        choiceId: 'humble',
+        label: 'Keep expectations measured',
+        effects: [
+          { type: 'professionalism', delta: 3 },
+          { type: 'fans', delta: 300 },
+        ],
+      },
+      {
+        choiceId: 'ambitious',
+        label: 'Declare big ambitions',
+        effects: [
+          { type: 'confidence', delta: 3 },
+          { type: 'fans', delta: 450 },
+          { type: 'professionalism', delta: -1 },
+        ],
+      },
+    ],
+    weight: 3,
+    cooldownMatches: 20,
+    careerTiers: ['domestic', 'franchise', 'international'],
+    repeatable: true,
+  },
 ];

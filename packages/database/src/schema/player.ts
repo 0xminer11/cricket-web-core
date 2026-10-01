@@ -60,6 +60,14 @@ export const playerProfiles = pgTable(
       .notNull()
       .default(sql`'{}'::text[]`),
     bowlingStyle: text('bowling_style', { enum: BOWLING_STYLES }),
+    /** Client idempotency key of the creation request (retry/replay detection). Null for seeded rows. */
+    creationKey: text('creation_key'),
+    /** SHA-256 of the canonical creation request, to tell a true replay from a reused key. */
+    creationRequestHash: text('creation_request_hash'),
+    /** game_balance_version in force when the cricketer was created (analytics/audit). */
+    creationBalanceVersion: text('creation_balance_version'),
+    /** Personality archetype picked at creation (history only; live traits are in player_personality). */
+    starterPersonalityId: text('starter_personality_id'),
     createdAt: createdAt(),
     updatedAt: updatedAt(),
   },
@@ -88,6 +96,14 @@ export const playerProfiles = pgTable(
     check(
       'player_profiles_secondary_roles_check',
       sql`${t.secondaryRoles} <@ ARRAY[${sql.raw(PLAYER_ROLES.map((r) => `'${r}'`).join(', '))}]::text[]`,
+    ),
+    check(
+      'player_profiles_creation_key_check',
+      sql`(${t.creationKey} IS NULL) = (${t.creationRequestHash} IS NULL) AND (${t.creationKey} IS NULL OR ${t.creationKey} ~ '^[A-Za-z0-9_-]{16,128}$') AND (${t.creationRequestHash} IS NULL OR ${t.creationRequestHash} ~ '^[0-9a-f]{64}$')`,
+    ),
+    check(
+      'player_profiles_starter_personality_check',
+      sql`${t.starterPersonalityId} IS NULL OR ${definitionId(t.starterPersonalityId)}`,
     ),
     check(
       'player_profiles_bowling_style_check',

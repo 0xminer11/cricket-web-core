@@ -40,6 +40,8 @@ export interface TestPlayer {
 export async function createTestPlayer(
   repos: Repositories,
   overrides: {
+    /** Attach the player to an existing user (e.g. a guest) instead of creating one. */
+    userId?: string;
     displayName?: string;
     attributes?: PlayerAttributes;
     coins?: number;
@@ -47,7 +49,10 @@ export async function createTestPlayer(
     level?: number;
   } = {},
 ): Promise<TestPlayer> {
-  const user = await createTestUser(repos);
+  const user = overrides.userId
+    ? await repos.users.findById(overrides.userId)
+    : await createTestUser(repos);
+  if (!user) throw new Error('createTestPlayer: user not found');
   const profile = await repos.players.create({
     userId: user.id,
     displayName: overrides.displayName ?? 'Test Cricketer',

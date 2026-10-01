@@ -9,14 +9,9 @@ test('web imports core and navigates all foundation routes', async ({
   await expect(
     page.getByText('Shared game-core loaded: 2 approved match formats.'),
   ).toBeVisible();
-  for (const route of [
-    'career',
-    'player',
-    'training',
-    'inventory',
-    'shop',
-    'play',
-  ]) {
+  // /career, /training, /play and the other player routes are authentication-guarded and covered by
+  // e2e/career-home.spec.ts, e2e/player-creation.spec.ts and e2e/player-3d.spec.ts.
+  for (const route of ['inventory', 'shop']) {
     await page.goto(`/${route}`);
     await expect(
       page.getByText('Application shell only.', { exact: false }),

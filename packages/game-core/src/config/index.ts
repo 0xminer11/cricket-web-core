@@ -11,3 +11,8 @@ export * from './ai.config';
 export * from './equipment.config';
 
 export * from './weather.config';
+export * from './overall';
+export * from './countries';
+export * from './starter-player.config';
+
+export * from './engine.config';

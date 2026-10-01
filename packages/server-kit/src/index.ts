@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import Fastify, { LogController } from 'fastify';
 import cors from '@fastify/cors';
+import type { FastifyCorsOptionsDelegate } from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import type { Environment } from '@the-cricketer/config';
@@ -11,7 +12,7 @@ import type {
   ApiResponse,
   Readiness,
 } from '@the-cricketer/shared-types';
-import { AppError, NotFoundError } from './errors';
+import { AppError, NotFoundError, RateLimitedError } from './errors';
 export * from './errors';
 /** Dependency probes for /ready. Each resolves when healthy and rejects when not; failures are never serialised. */
 export type ReadinessChecks = Readonly<Record<string, () => Promise<void>>>;
@@ -19,6 +20,14 @@ export interface ServiceOptions {
   readonly readiness?: ReadinessChecks;
   /** Per-check deadline (default 3000 ms). */
   readonly readinessTimeoutMs?: number;
+  /**
+   * Cookie-authenticated API surface. Requests under `pathPrefix` get CORS with credentials, but
+   * only for these exact origins (never `*`); everything else keeps credential-less CORS.
+   */
+  readonly credentialedCors?: {
+    readonly pathPrefix: string;
+    readonly origins: readonly string[];
+  };
 }
 
 export async function createService(
@@ -34,7 +43,7 @@ export async function createService(
     }),
     genReqId: () => randomUUID(),
     requestIdHeader: false,
-    trustProxy: false,
+    trustProxy: env.TRUST_PROXY,
     bodyLimit: 64 * 1024,
     requestTimeout: 15000,
     connectionTimeout: 10000,
@@ -56,11 +65,27 @@ export async function createService(
     );
   });
   await app.register(helmet);
-  await app.register(cors, {
-    origin: env.origins,
-    credentials: false,
-    exposedHeaders: ['x-request-id'],
-  });
+  const credentialed = options.credentialedCors;
+  await app.register(
+    cors,
+    (): FastifyCorsOptionsDelegate => (req, callback) => {
+      // Credentials are granted only to an exact trusted origin on the auth surface.
+      const withCredentials =
+        credentialed !== undefined &&
+        req.url.startsWith(credentialed.pathPrefix) &&
+        req.headers.origin !== undefined &&
+        credentialed.origins.includes(req.headers.origin);
+      callback(null, {
+        origin:
+          credentialed && req.url.startsWith(credentialed.pathPrefix)
+            ? [...credentialed.origins]
+            : env.origins,
+        credentials: withCredentials,
+        methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        exposedHeaders: ['x-request-id', 'retry-after'],
+      });
+    },
+  );
   await app.register(rateLimit, {
     max: env.deployed ? 120 : 1000,
     timeWindow: '1 minute',
@@ -103,6 +128,8 @@ export async function createService(
       },
       'request failed',
     );
+    if (error instanceof RateLimitedError)
+      void reply.header('retry-after', String(error.retryAfterSeconds));
     const response: ApiResponse<never> = {
       success: false,
       error: {

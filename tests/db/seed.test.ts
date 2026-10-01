@@ -1,5 +1,8 @@
 import { expect, it } from 'vitest';
-import { TEAMS } from '../../packages/game-core/src/index';
+import {
+  TEAMS,
+  MATCH_ENGINE_VERSION,
+} from '../../packages/game-core/src/index';
 import {
   DEV_IDS,
   seedDevelopmentData,
@@ -19,7 +22,7 @@ describeDb('seeding', (ctx) => {
     expect(second.version.id).toBe(first.version.id);
     expect(first.version).toMatchObject({
       gameBalanceVersion: '1',
-      matchEngineVersion: '1',
+      matchEngineVersion: MATCH_ENGINE_VERSION,
       dataSchemaVersion: 2,
     });
     const count = await ctx().database.db.execute(

@@ -6,6 +6,7 @@ import {
   foreignKey,
   index,
   integer,
+  jsonb,
   numeric,
   pgTable,
   smallint,
@@ -350,7 +351,7 @@ export const matchBalls = pgTable(
     unique('match_balls_over_ball_uniq').on(t.overId, t.ballInOver),
     check('match_balls_sequence_check', positive(t.sequenceNumber)),
     check('match_balls_over_number_check', positive(t.overNumber)),
-    check('match_balls_ball_in_over_check', range(t.ballInOver, 1, 30)),
+    check('match_balls_ball_in_over_check', range(t.ballInOver, 1, 1000)),
     check('match_balls_runs_off_bat_check', range(t.runsOffBat, 0, 8)),
     check('match_balls_extras_check', range(t.extras, 0, 10)),
     check(
@@ -421,5 +422,24 @@ export const matchBalls = pgTable(
       columns: [t.matchId, t.dismissedParticipantId],
       foreignColumns: [matchParticipants.matchId, matchParticipants.id],
     }).onDelete('restrict'),
+  ],
+);
+
+/** Logical replay/checkpoint. Normalized match tables remain the scoring authority. */
+export const matchEngineSessions = pgTable(
+  'match_engine_sessions',
+  {
+    matchId: uuid('match_id')
+      .primaryKey()
+      .references(() => matches.id, { onDelete: 'restrict' }),
+    revision: integer('revision').notNull().default(0),
+    replay: jsonb('replay').$type<unknown>().notNull(),
+    state: jsonb('state').$type<unknown>().notNull(),
+    participantMap: jsonb('participant_map')
+      .$type<Record<string, string>>()
+      .notNull(),
+  },
+  (t) => [
+    check('match_engine_sessions_revision_check', nonNegative(t.revision)),
   ],
 );

@@ -1,4 +1,4 @@
-import { and, desc, eq } from 'drizzle-orm';
+import { and, desc, eq, gte, sql } from 'drizzle-orm';
 import { GAME_BALANCE_VERSION } from '@the-cricketer/game-core';
 import type { Executor } from '../connection';
 import {
@@ -99,6 +99,8 @@ export class TrainingRepository extends Repository {
     readonly xpAwarded: number;
     readonly fatigueAdded: number;
     readonly outcome: unknown;
+    /** The ledger row of the cost, when the drill cost something. */
+    readonly walletTransactionId?: string;
   }): Promise<TrainingSessionRecord> {
     return this.run(async () => {
       assertUuid(input.sessionId, 'sessionId');
@@ -108,6 +110,9 @@ export class TrainingRepository extends Repository {
         xpAwarded: input.xpAwarded,
         fatigueAdded: input.fatigueAdded,
         outcome: input.outcome,
+        ...(input.walletTransactionId
+          ? { walletTransactionId: input.walletTransactionId }
+          : {}),
         completedAt: this.ctx.clock.now(),
       });
     });
@@ -169,6 +174,67 @@ export class TrainingRepository extends Repository {
         );
       if (!rows[0]) throw new OwnershipViolationError('Training session');
       return toSession(rows[0]);
+    });
+  }
+
+  /**
+   * Counts of completed sessions since a moment (the start of the UTC day), split into drills and
+   * rests. One aggregate query: this is the "training load" the engine reads.
+   */
+  countSince(
+    playerId: string,
+    since: Date,
+    restDefinitionId: string,
+  ): Promise<{ readonly drills: number; readonly rests: number }> {
+    return this.run(async () => {
+      assertUuid(playerId, 'playerId');
+      const rows = await this.db
+        .select({
+          drills: sql<number>`count(*) filter (where ${trainingSessions.trainingDefinitionId} <> ${restDefinitionId})::int`,
+          rests: sql<number>`count(*) filter (where ${trainingSessions.trainingDefinitionId} = ${restDefinitionId})::int`,
+        })
+        .from(trainingSessions)
+        .where(
+          and(
+            eq(trainingSessions.playerId, playerId),
+            eq(trainingSessions.status, 'completed'),
+            gte(trainingSessions.startedAt, since),
+          ),
+        );
+      return { drills: rows[0]?.drills ?? 0, rests: rows[0]?.rests ?? 0 };
+    });
+  }
+
+  /** Completed sessions, newest first (started_at DESC, id DESC), keyset paginated. */
+  listCompleted(
+    playerId: string,
+    page: PageRequest & { readonly since?: Date } = {},
+  ): Promise<Page<TrainingSessionRecord>> {
+    return this.run(async () => {
+      assertUuid(playerId, 'playerId');
+      const limit = clampLimit(page.limit);
+      const rows = await this.db
+        .select()
+        .from(trainingSessions)
+        .where(
+          and(
+            eq(trainingSessions.playerId, playerId),
+            eq(trainingSessions.status, 'completed'),
+            page.since
+              ? gte(trainingSessions.startedAt, page.since)
+              : undefined,
+            keysetDesc(
+              trainingSessions.startedAt,
+              trainingSessions.id,
+              page.cursor,
+            ),
+          ),
+        )
+        .orderBy(desc(trainingSessions.startedAt), desc(trainingSessions.id))
+        .limit(limit + 1);
+      return toPage(rows.map(toSession), limit, (r) =>
+        encodeTimeCursor(r.startedAt, r.id),
+      );
     });
   }
 

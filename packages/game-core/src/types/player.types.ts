@@ -1,4 +1,11 @@
-import type { AssetId, CareerTierId, IsoDateTime, PlayerId, StatValue, TeamId } from './common.types';
+import type {
+  AssetId,
+  CareerTierId,
+  IsoDateTime,
+  PlayerId,
+  StatValue,
+  TeamId,
+} from './common.types';
 
 export type BattingHand = 'right' | 'left';
 export type BowlingStyle =

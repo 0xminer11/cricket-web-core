@@ -1,5 +1,10 @@
 import type { IsoDateTime, PlayerId, VersionStamp } from './common.types';
-import type { CareerProgress, PlayerAttributes, PlayerForm, SkillProgressState } from './player.types';
+import type {
+  CareerProgress,
+  PlayerAttributes,
+  PlayerForm,
+  SkillProgressState,
+} from './player.types';
 import type { CurrencyBalance } from './reward.types';
 import type { InventoryItem } from './item.types';
 

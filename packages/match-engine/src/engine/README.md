@@ -1,1 +1,1 @@
-Engine implementations begin in Module 8. Public interfaces are exported from src/index.ts. State, rules, simulation, RNG and event adapters stay rendering-independent.
+Module 8 implements synchronous headless cricket in match-engine.ts. Delivery/contact/outcome resolution, scoring, state, replay, seeded randomness and simulation live in separate directories. See docs/match-engine/overview.md at the repository root.

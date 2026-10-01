@@ -1,15 +1,6 @@
-import Link from 'next/link';
-import { Card } from '@the-cricketer/ui';
+import { redirect } from 'next/navigation';
+
+/** `/play` is the Play tab: it opens match preparation (the Match module replaces that screen). */
 export default function Page() {
-  return (
-    <>
-      <h1>Play</h1>
-      <Card>
-        <p>Application shell only. This feature arrives in a future module.</p>
-      </Card>
-      <p>
-        <Link href="/">Back to dashboard</Link>
-      </p>
-    </>
-  );
+  redirect('/match/preparation');
 }

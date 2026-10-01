@@ -1,11 +1,23 @@
-import type { DeliveryId, MatchFormatId, MatchId, PitchId, PlayerId, ShotId, TeamId, VersionStamp } from './common.types';
+import type {
+  DeliveryId,
+  MatchFormatId,
+  MatchId,
+  PitchId,
+  PlayerId,
+  ShotId,
+  TeamId,
+  VersionStamp,
+} from './common.types';
 
 export type DeliveryLength = 'yorker' | 'full' | 'good' | 'short' | 'bouncer';
-export type DeliveryLine = 'wide_off' | 'outside_off' | 'off_stump' | 'middle' | 'leg' | 'wide_leg';
+export type DeliveryLine =
+  'wide_off' | 'outside_off' | 'off_stump' | 'middle' | 'leg' | 'wide_leg';
 export type ShotCategory = 'defensive' | 'drive' | 'cross_bat' | 'lofted';
 export type PreferredFoot = 'front' | 'back' | 'either';
-export type ContactQuality = 'perfect' | 'good' | 'okay' | 'poor' | 'edge' | 'miss';
-export type DismissalType = 'bowled' | 'caught' | 'lbw' | 'run_out' | 'stumped' | 'hit_wicket';
+export type ContactQuality =
+  'perfect' | 'good' | 'okay' | 'poor' | 'edge' | 'miss';
+export type DismissalType =
+  'bowled' | 'caught' | 'lbw' | 'run_out' | 'stumped' | 'hit_wicket';
 export type ExtraType = 'wide' | 'no_ball' | 'bye' | 'leg_bye';
 
 export interface ShotDefinition {
@@ -29,10 +41,21 @@ export interface DeliveryDefinition {
   readonly defaultLength: DeliveryLength;
   readonly difficulty: number; // 0..1
   readonly controlPenalty: number; // 0..1
-  readonly movementProfile: 'none' | 'swing_out' | 'swing_in' | 'seam' | 'off_break' | 'leg_break' | 'googly' | 'top_spin' | 'cutter' | 'slower';
+  readonly movementProfile:
+    | 'none'
+    | 'swing_out'
+    | 'swing_in'
+    | 'seam'
+    | 'off_break'
+    | 'leg_break'
+    | 'googly'
+    | 'top_spin'
+    | 'cutter'
+    | 'slower';
   readonly movementStrength: number; // 0..1
   readonly staminaCost: number;
-  readonly idealAttribute: 'pace' | 'accuracy' | 'swing' | 'seam' | 'spin' | 'control' | 'variation';
+  readonly idealAttribute:
+    'pace' | 'accuracy' | 'swing' | 'seam' | 'spin' | 'control' | 'variation';
 }
 
 export interface PitchDefinition {

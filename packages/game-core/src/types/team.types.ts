@@ -1,5 +1,16 @@
-import type { AssetId, CareerTierId, PlayerId, StatValue, TeamId } from './common.types';
-import type { BattingHand, BowlingStyle, PlayerAttributes, PlayerRole } from './player.types';
+import type {
+  AssetId,
+  CareerTierId,
+  PlayerId,
+  StatValue,
+  TeamId,
+} from './common.types';
+import type {
+  BattingHand,
+  BowlingStyle,
+  PlayerAttributes,
+  PlayerRole,
+} from './player.types';
 
 export interface Team {
   readonly teamId: TeamId;
@@ -23,5 +34,11 @@ export interface AIPlayer {
   readonly battingHand: BattingHand;
   readonly bowlingStyle?: BowlingStyle;
   readonly attributes: PlayerAttributes;
-  readonly aiArchetype: 'patient' | 'balanced' | 'aggressive' | 'technical' | 'attacking_bowler' | 'containing_bowler';
+  readonly aiArchetype:
+    | 'patient'
+    | 'balanced'
+    | 'aggressive'
+    | 'technical'
+    | 'attacking_bowler'
+    | 'containing_bowler';
 }

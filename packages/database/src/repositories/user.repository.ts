@@ -7,10 +7,12 @@ import { users } from '../schema/index';
 import type { RepositoryContext } from './shared';
 import { assertUuid, Repository, requireRow } from './shared';
 
-const toUser = (row: typeof users.$inferSelect): UserRecord => ({
+export const toUser = (row: typeof users.$inferSelect): UserRecord => ({
   id: row.id,
   status: row.status,
   origin: row.origin,
+  accountType: row.accountType,
+  registeredAt: row.registeredAt,
   createdAt: row.createdAt,
   updatedAt: row.updatedAt,
   lastSeenAt: row.lastSeenAt,

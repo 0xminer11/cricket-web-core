@@ -1,5 +1,9 @@
 import type { Executor } from '../connection';
 import { AchievementRepository } from './achievement.repository';
+import { AuthRepository } from './auth.repository';
+import { AuthTokenRepository } from './auth-token.repository';
+import { SessionRepository } from './session.repository';
+import { CareerHomeRepository } from './career-home.repository';
 import { CareerRepository } from './career.repository';
 import { InventoryRepository } from './inventory.repository';
 import { MatchRepository } from './match.repository';
@@ -15,8 +19,12 @@ import { WalletRepository } from './wallet.repository';
 
 export interface Repositories {
   readonly users: UserRepository;
+  readonly auth: AuthRepository;
+  readonly sessions: SessionRepository;
+  readonly authTokens: AuthTokenRepository;
   readonly players: PlayerRepository;
   readonly careers: CareerRepository;
+  readonly careerHome: CareerHomeRepository;
   readonly teams: TeamRepository;
   readonly matches: MatchRepository;
   readonly inventory: InventoryRepository;
@@ -45,8 +53,12 @@ export function createRepositories(
   const { wallet, players, careers, inventory } = rewardDependencies(executor);
   return {
     users: new UserRepository(executor, ctx),
+    auth: new AuthRepository(executor, ctx),
+    sessions: new SessionRepository(executor),
+    authTokens: new AuthTokenRepository(executor),
     players,
     careers,
+    careerHome: new CareerHomeRepository(executor, ctx),
     teams: new TeamRepository(executor, ctx),
     matches: new MatchRepository(executor, ctx),
     inventory,
@@ -61,7 +73,11 @@ export function createRepositories(
 
 export type { RepositoryContext } from './shared';
 export * from './achievement.repository';
+export * from './auth.repository';
+export * from './auth-token.repository';
+export * from './session.repository';
 export * from './career.repository';
+export * from './career-home.repository';
 export * from './inventory.repository';
 export * from './match.repository';
 export * from './player.repository';

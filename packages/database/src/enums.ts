@@ -28,6 +28,28 @@ export const USER_STATUSES = ['active', 'suspended', 'deleted'] as const;
 export type UserStatus = (typeof USER_STATUSES)[number];
 export const USER_ORIGINS = ['organic', 'development', 'test'] as const;
 export type UserOrigin = (typeof USER_ORIGINS)[number];
+/** Stable account types. Login methods (email, Google, Apple) live in auth_identities instead. */
+export const ACCOUNT_TYPES = ['guest', 'registered'] as const;
+export type AccountType = (typeof ACCOUNT_TYPES)[number];
+/** `guest` is deliberately absent: a guest has no login credential, only a session. */
+export const AUTH_PROVIDERS = ['email_password', 'google', 'apple'] as const;
+export type AuthProviderId = (typeof AUTH_PROVIDERS)[number];
+export const AUTH_TOKEN_PURPOSES = [
+  'email_verification',
+  'password_reset',
+] as const;
+export type AuthTokenPurpose = (typeof AUTH_TOKEN_PURPOSES)[number];
+export const SESSION_REVOKE_REASONS = [
+  'logout',
+  'logout_all',
+  'rotated',
+  'upgraded',
+  'password_changed',
+  'password_reset',
+  'suspended',
+  'admin',
+] as const;
+export type SessionRevokeReason = (typeof SESSION_REVOKE_REASONS)[number];
 
 export const BATTING_HANDS = [
   'right',
@@ -388,7 +410,12 @@ export type StatScopeType = (typeof STAT_SCOPE_TYPES)[number];
 /** scope_id used for the all-time row (part of the primary key, so never NULL). */
 export const CAREER_SCOPE_ID = 'all';
 
-export const AUDIT_ACTOR_TYPES = ['system', 'admin', 'service'] as const;
+export const AUDIT_ACTOR_TYPES = [
+  'system',
+  'admin',
+  'service',
+  'user',
+] as const;
 export type AuditActorType = (typeof AUDIT_ACTOR_TYPES)[number];
 
 /** Stable-format checks for static definition IDs (see docs/game-design/16). */

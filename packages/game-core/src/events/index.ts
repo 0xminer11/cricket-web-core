@@ -8,10 +8,36 @@ import type {
   VersionStamp,
 } from '../types/index';
 interface EventPayloads {
-  'player.created': { playerId: PlayerId };
+  'player.created': {
+    playerId: PlayerId;
+    userId: string;
+    careerId: string;
+    primaryRole: string;
+    careerTier: CareerTierId;
+    accountType: 'guest' | 'registered';
+    balanceVersion: string;
+  };
   'match.started': { matchId: MatchId; versions: VersionStamp };
   'match.completed': { matchId: MatchId; versions: VersionStamp };
-  'training.completed': { playerId: PlayerId; trainingId: TrainingId };
+  'training.completed': {
+    playerId: PlayerId;
+    trainingId: TrainingId;
+    sessionId?: string;
+    kind?: 'drill' | 'recovery';
+  };
+  'player.level_up': {
+    playerId: PlayerId;
+    oldLevel: number;
+    newLevel: number;
+    source: 'training' | 'match' | 'achievement' | 'event';
+  };
+  'player.skill_improved': {
+    playerId: PlayerId;
+    skillId: string;
+    oldValue: number;
+    newValue: number;
+    source: 'training' | 'match';
+  };
   'career.promoted': { playerId: PlayerId; tier: CareerTierId };
   'item.acquired': { playerId: PlayerId; itemId: ItemId };
 }

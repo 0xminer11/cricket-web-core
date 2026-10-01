@@ -1,6 +1,16 @@
-import type { CareerTierId, MatchFormatId, PitchId, VersionStamp } from './common.types';
+import type {
+  CareerTierId,
+  MatchFormatId,
+  PitchId,
+  VersionStamp,
+} from './common.types';
 import type { EquipmentItem } from './item.types';
-import type { DeliveryDefinition, MatchFormat, PitchDefinition, ShotDefinition } from './match.types';
+import type {
+  DeliveryDefinition,
+  MatchFormat,
+  PitchDefinition,
+  ShotDefinition,
+} from './match.types';
 import type { TrainingDefinition } from './training.types';
 import type { CareerEvent } from './career.types';
 import type { Achievement } from './reward.types';

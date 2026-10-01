@@ -1,4 +1,10 @@
-import type { AssetId, CurrencyCode, IsoDateTime, ItemId, Rarity } from './common.types';
+import type {
+  AssetId,
+  CurrencyCode,
+  IsoDateTime,
+  ItemId,
+  Rarity,
+} from './common.types';
 
 export type EquipmentSlot =
   | 'bat'
@@ -38,7 +44,10 @@ export interface EquipmentItem {
   readonly description: string;
   readonly rarity: Rarity;
   readonly levelRequirement: number;
-  readonly purchasePrice?: { readonly currency: CurrencyCode; readonly amount: number };
+  readonly purchasePrice?: {
+    readonly currency: CurrencyCode;
+    readonly amount: number;
+  };
   readonly sellable: boolean;
   readonly cosmeticOnly: boolean;
   readonly maxUpgradeLevel: number;
@@ -55,7 +64,8 @@ export interface InventoryItem {
   readonly quantity: number;
   readonly upgradeLevel: number;
   readonly acquiredAt: IsoDateTime;
-  readonly acquisitionSource: 'starter' | 'shop' | 'reward' | 'achievement' | 'contract' | 'sponsor';
+  readonly acquisitionSource:
+    'starter' | 'shop' | 'reward' | 'achievement' | 'contract' | 'sponsor';
 }
 
 export interface EquippedItems {

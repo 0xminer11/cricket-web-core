@@ -4,16 +4,18 @@ Enforced by lint's AST import/dependency check and package export maps. Applicat
 
 Allowed internal edges:
 
-| Package                        | Dependencies                                                 |
-| ------------------------------ | ------------------------------------------------------------ |
-| core, shared-types, logger, ui | none                                                         |
-| config, match-engine, testing  | game-core                                                    |
-| database                       | config, game-core, logger                                    |
-| server-kit                     | config, logger, shared-types                                 |
-| web/admin                      | core, config, ui, shared-types                               |
-| api                            | core, config, shared-types, logger, database, server-kit     |
-| game-server                    | core, match-engine, config, shared-types, logger, server-kit |
+| Package                        | Dependencies                                                           |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| core, shared-types, logger, ui | none                                                                   |
+| config, match-engine, testing  | game-core                                                              |
+| database                       | config, game-core, logger                                              |
+| server-kit                     | config, logger, shared-types                                           |
+| web/admin                      | core, config, ui, shared-types                                         |
+| api                            | core, match-engine, config, shared-types, logger, database, server-kit |
+| game-server                    | core, match-engine, config, shared-types, logger, server-kit           |
 
 Domain types are not copied into transport or persistence packages. Introduce explicit DTO mappings when API/database shapes differ. No runtime/browser state can become authoritative. Keep TypeScript strict, noUncheckedIndexedAccess and exactOptionalPropertyTypes enabled; there are no explicit any exceptions.
 
 Module 2: `database` reads static definitions and version constants from `game-core` (validation of ids, seeds) and accepts a logger; its `schema/` never imports `game-core`, so drizzle-kit needs no build. Only `api` may depend on `database`; web/admin/game-server must not (see [database-security.md](database-security.md)).
+
+Module 8: the API wraps the pure match-engine with snapshot, ownership and transaction services. The engine still imports only game-core; database never imports the engine.

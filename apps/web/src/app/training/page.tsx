@@ -1,15 +1,7 @@
-import Link from 'next/link';
-import { Card } from '@the-cricketer/ui';
+import { TrainingHub } from '../../features/training';
+
+export const metadata = { title: 'Training — THE CRICKETER' };
+
 export default function Page() {
-  return (
-    <>
-      <h1>Training</h1>
-      <Card>
-        <p>Application shell only. This feature arrives in a future module.</p>
-      </Card>
-      <p>
-        <Link href="/">Back to dashboard</Link>
-      </p>
-    </>
-  );
+  return <TrainingHub />;
 }

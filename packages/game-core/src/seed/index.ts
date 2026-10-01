@@ -5,4 +5,5 @@ export * from './items.seed';
 export * from './archetypes.seed';
 export * from './events.seed';
 export * from './achievements.seed';
+export * from './appearance.seed';
 export * from './contracts.seed';

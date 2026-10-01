@@ -12,6 +12,8 @@ export const ECONOMY_CONFIG = {
     epic: [3000, 6500],
     legendary: [6500, 12000],
   },
-  equipmentUpgradeCostMultiplierByLevel: [0, .20, .30, .42, .56, .72, .90, 1.10, 1.32, 1.56, 1.82],
+  equipmentUpgradeCostMultiplierByLevel: [
+    0, 0.2, 0.3, 0.42, 0.56, 0.72, 0.9, 1.1, 1.32, 1.56, 1.82,
+  ],
   maxEquipmentContributionToEffectiveSkill: 0.12,
 } as const;

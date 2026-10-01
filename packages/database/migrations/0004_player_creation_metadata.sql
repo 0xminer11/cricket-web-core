@@ -1,0 +1,6 @@
+ALTER TABLE "player_profiles" ADD COLUMN "creation_key" text;--> statement-breakpoint
+ALTER TABLE "player_profiles" ADD COLUMN "creation_request_hash" text;--> statement-breakpoint
+ALTER TABLE "player_profiles" ADD COLUMN "creation_balance_version" text;--> statement-breakpoint
+ALTER TABLE "player_profiles" ADD COLUMN "starter_personality_id" text;--> statement-breakpoint
+ALTER TABLE "player_profiles" ADD CONSTRAINT "player_profiles_creation_key_check" CHECK (("player_profiles"."creation_key" IS NULL) = ("player_profiles"."creation_request_hash" IS NULL) AND ("player_profiles"."creation_key" IS NULL OR "player_profiles"."creation_key" ~ '^[A-Za-z0-9_-]{16,128}$') AND ("player_profiles"."creation_request_hash" IS NULL OR "player_profiles"."creation_request_hash" ~ '^[0-9a-f]{64}$'));--> statement-breakpoint
+ALTER TABLE "player_profiles" ADD CONSTRAINT "player_profiles_starter_personality_check" CHECK ("player_profiles"."starter_personality_id" IS NULL OR "player_profiles"."starter_personality_id" ~ '^[a-z0-9_]+(\.[a-z0-9_]+)+$');

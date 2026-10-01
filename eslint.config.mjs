@@ -18,7 +18,14 @@ export default ts.config(
   {
     files: ['**/*.{js,mjs}'],
     languageOptions: {
-      globals: { process: 'readonly', console: 'readonly', URL: 'readonly' },
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        URL: 'readonly',
+        Buffer: 'readonly',
+        structuredClone: 'readonly',
+        TextEncoder: 'readonly',
+      },
     },
   },
   {

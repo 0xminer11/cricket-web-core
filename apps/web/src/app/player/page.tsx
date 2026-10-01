@@ -1,15 +1,12 @@
-import Link from 'next/link';
-import { Card } from '@the-cricketer/ui';
+import { PlayerPageEntry } from '../../features/player-3d/components/entry';
+
+export const metadata = { title: 'My cricketer — THE CRICKETER' };
+
 export default function Page() {
   return (
     <>
-      <h1>Player</h1>
-      <Card>
-        <p>Application shell only. This feature arrives in a future module.</p>
-      </Card>
-      <p>
-        <Link href="/">Back to dashboard</Link>
-      </p>
+      <h1>My cricketer</h1>
+      <PlayerPageEntry />
     </>
   );
 }

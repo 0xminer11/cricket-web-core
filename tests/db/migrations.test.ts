@@ -16,6 +16,9 @@ import { describeDb, integration } from '../support/db';
 
 const EXPECTED_TABLES = [
   'audit_logs',
+  'auth_identities',
+  'auth_sessions',
+  'auth_tokens',
   'career_event_instances',
   'career_history',
   'careers',
@@ -25,6 +28,7 @@ const EXPECTED_TABLES = [
   'fixtures',
   'game_versions',
   'match_balls',
+  'match_engine_sessions',
   'match_innings',
   'match_overs',
   'match_participants',
@@ -33,6 +37,7 @@ const EXPECTED_TABLES = [
   'player_appearance',
   'player_attributes',
   'player_inventory',
+  'player_onboarding',
   'player_personality',
   'player_profiles',
   'player_skill_progress',
@@ -95,6 +100,16 @@ describeDb('template schema (fresh migration)', (ctx) => {
       'contracts_career_status_idx',
       'reward_grants_source_uniq',
       'currency_balances_pk',
+      // Module 3 authentication
+      'auth_identities_provider_subject_uniq',
+      'auth_identities_user_provider_uniq',
+      'auth_identities_email_normalized_idx',
+      'auth_sessions_token_hash_uniq',
+      'auth_sessions_user_revoked_idx',
+      'auth_sessions_expires_idx',
+      'auth_tokens_token_hash_uniq',
+      'auth_tokens_user_purpose_idx',
+      'auth_tokens_expires_idx',
     ])
       expect(indexes, name).toContain(name);
   });
@@ -111,6 +126,9 @@ describeDb('template schema (fresh migration)', (ctx) => {
       'currency_balances_guard_write',
       'player_state_lifetime_xp_monotonic',
       'users_touch_updated_at',
+      'users_guard_account_type',
+      'auth_identities_guard_owner',
+      'auth_identities_touch_updated_at',
     ])
       expect(triggers).toContain(name);
   });
@@ -218,6 +236,13 @@ it.runIf(integration)(
         ),
       ).toEqual(['1']);
       expect(await scalar(db.url, 'SELECT count(*) FROM users')).toEqual(['1']);
+      // Pre-auth users survive as guest accounts without credentials (Module 3 migration rule)
+      expect(await scalar(db.url, 'SELECT account_type FROM users')).toEqual([
+        'guest',
+      ]);
+      expect(
+        await scalar(db.url, 'SELECT count(*) FROM auth_identities'),
+      ).toEqual(['0']);
       expect(
         Number(
           (

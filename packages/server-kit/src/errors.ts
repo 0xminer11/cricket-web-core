@@ -38,3 +38,9 @@ export class InternalServerError extends AppError {
     super('INTERNAL_ERROR', 'Internal server error', 500);
   }
 }
+/** 429 with a Retry-After hint (seconds). The generic message reveals nothing about which limit tripped. */
+export class RateLimitedError extends AppError {
+  constructor(readonly retryAfterSeconds: number) {
+    super('RATE_LIMITED', 'Too many attempts. Try again later.', 429);
+  }
+}

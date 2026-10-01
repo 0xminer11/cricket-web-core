@@ -1,0 +1,2 @@
+ALTER TABLE "match_balls" DROP CONSTRAINT "match_balls_ball_in_over_check";--> statement-breakpoint
+ALTER TABLE "match_balls" ADD CONSTRAINT "match_balls_ball_in_over_check" CHECK ("match_balls"."ball_in_over" BETWEEN 1 AND 1000);

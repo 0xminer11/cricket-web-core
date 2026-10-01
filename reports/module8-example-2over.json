@@ -1,0 +1,321 @@
+{
+  "formatId": "format.2_over",
+  "seed": "module8-report",
+  "innings": [
+    {
+      "teamId": "team.b",
+      "runs": 20,
+      "wickets": 1,
+      "legalBalls": 12,
+      "batting": [
+        {
+          "playerId": "team.b.player.1",
+          "runs": 7,
+          "balls": 5,
+          "fours": 1,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.2",
+          "runs": 5,
+          "balls": 5,
+          "fours": 1,
+          "sixes": 0,
+          "dismissal": "caught"
+        },
+        {
+          "playerId": "team.b.player.3",
+          "runs": 8,
+          "balls": 2,
+          "fours": 2,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.4",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.5",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.6",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.7",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.8",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.9",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.10",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.b.player.11",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        }
+      ],
+      "bowling": [
+        {
+          "playerId": "team.a.player.6",
+          "legalBalls": 6,
+          "runs": 7,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 2
+        },
+        {
+          "playerId": "team.a.player.7",
+          "legalBalls": 6,
+          "runs": 13,
+          "wickets": 1,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 2
+        },
+        {
+          "playerId": "team.a.player.8",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.a.player.9",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.a.player.10",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.a.player.11",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        }
+      ]
+    },
+    {
+      "teamId": "team.a",
+      "runs": 21,
+      "wickets": 2,
+      "legalBalls": 12,
+      "batting": [
+        {
+          "playerId": "team.a.player.1",
+          "runs": 0,
+          "balls": 1,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": "caught"
+        },
+        {
+          "playerId": "team.a.player.2",
+          "runs": 0,
+          "balls": 1,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": "caught"
+        },
+        {
+          "playerId": "team.a.player.3",
+          "runs": 17,
+          "balls": 9,
+          "fours": 4,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.4",
+          "runs": 4,
+          "balls": 1,
+          "fours": 1,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.5",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.6",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.7",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.8",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.9",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.10",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        },
+        {
+          "playerId": "team.a.player.11",
+          "runs": 0,
+          "balls": 0,
+          "fours": 0,
+          "sixes": 0,
+          "dismissal": null
+        }
+      ],
+      "bowling": [
+        {
+          "playerId": "team.b.player.6",
+          "legalBalls": 6,
+          "runs": 9,
+          "wickets": 2,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 3
+        },
+        {
+          "playerId": "team.b.player.7",
+          "legalBalls": 6,
+          "runs": 12,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 3
+        },
+        {
+          "playerId": "team.b.player.8",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.b.player.9",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.b.player.10",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        },
+        {
+          "playerId": "team.b.player.11",
+          "legalBalls": 0,
+          "runs": 0,
+          "wickets": 0,
+          "extras": 0,
+          "maidens": 0,
+          "dots": 0
+        }
+      ]
+    }
+  ],
+  "result": {
+    "type": "win",
+    "winnerTeamId": "team.a",
+    "margin": 3,
+    "marginType": "wickets",
+    "superOver": false
+  },
+  "runtimeMs": 11.87,
+  "heapDeltaBytes": 490536,
+  "gcMeasured": true,
+  "node": "v24.21.0"
+}
