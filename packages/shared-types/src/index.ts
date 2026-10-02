@@ -49,3 +49,6 @@ export * from './auth';
 export * from './player';
 export * from './career';
 export * from './training';
+
+export * from './match-play';
+export * from './match-flow';

@@ -120,6 +120,8 @@ export const fixtureSummarySchema = z.object({
   season: z.number().int(),
   /** completed fixtures only */
   result: z.enum(['won', 'lost', 'tied', 'no_result']).nullable(),
+  /** The match created for this fixture (in progress or finished), so Career Home can resume it. */
+  matchId: z.string().uuid().nullable().default(null),
 });
 export type FixtureSummary = z.infer<typeof fixtureSummarySchema>;
 

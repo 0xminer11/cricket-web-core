@@ -28,6 +28,7 @@ const EXPECTED_TABLES = [
   'fixtures',
   'game_versions',
   'match_balls',
+  'match_career_results',
   'match_engine_sessions',
   'match_innings',
   'match_overs',

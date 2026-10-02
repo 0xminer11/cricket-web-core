@@ -1,3 +1,4 @@
+import { completeToss } from '../support/match-flow';
 import { expect, it } from 'vitest';
 import { describeDb } from '../support/db';
 import { Browser, buildAuthApp } from '../support/auth';
@@ -44,6 +45,12 @@ describeDb('Module 8 match authority', (ctx) => {
       expect(starts[0]!.json()).toEqual(starts[1]!.json());
       const matchId = starts[0]!.json().data.matchId as string;
       const initial = (await repos.matches.getEngineSession(matchId))!;
+      // created, not started: the toss comes next
+      expect(
+        (initial.replay as MatchReplay).commands.some(
+          (c) => c.type === 'start',
+        ),
+      ).toBe(false);
       const replay = initial.replay as MatchReplay;
       const human = [replay.input.teamA, replay.input.teamB]
         .flatMap((t) => t.players)
@@ -72,6 +79,10 @@ describeDb('Module 8 match authority', (ctx) => {
           }
         ).database,
       );
+      // the toss, through the real endpoints (it persists the toss and starts the engine)
+      await completeToss(browser, matchId);
+      const baseRevision = (await repos.matches.getEngineSession(matchId))!
+        .revision;
       let duplicateChecked = false;
       for (let n = 0; n < 150; n++) {
         const session = (await repos.matches.getEngineSession(matchId))!;
@@ -105,7 +116,7 @@ describeDb('Module 8 match authority', (ctx) => {
           ).rejects.toThrow();
           expect(
             (await repos.matches.getEngineSession(matchId))!.revision,
-          ).toBe(0);
+          ).toBe(baseRevision);
           const results = await Promise.all([
             service.resolveBall(scope, matchId, action, bowlerId),
             service.resolveBall(scope, matchId, action, bowlerId),
@@ -113,7 +124,7 @@ describeDb('Module 8 match authority', (ctx) => {
           expect(results[0]).toEqual(results[1]);
           expect(
             (await repos.matches.getEngineSession(matchId))!.revision,
-          ).toBe(1);
+          ).toBe(baseRevision + 1);
           duplicateChecked = true;
         } else await service.resolveBall(scope, matchId, action, bowlerId);
       }

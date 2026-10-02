@@ -105,6 +105,8 @@ export async function buildApp(
         auth,
         player,
         strict: env.deployed,
+        devTools:
+          env.environment === 'development' || env.environment === 'test',
       });
       await registerCareer(app, {
         database,

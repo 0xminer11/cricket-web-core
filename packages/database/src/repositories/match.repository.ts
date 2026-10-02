@@ -47,6 +47,7 @@ import type {
 } from '../records';
 import {
   matchBalls,
+  matchCareerResults,
   matchEngineSessions,
   matchInnings,
   matchOvers,
@@ -268,11 +269,17 @@ export class MatchRepository extends Repository {
     expectedRevision: number,
     replay: unknown,
     state: unknown,
+    flow?: Record<string, unknown>,
   ): Promise<void> {
     return this.run(async () => {
       const rows = await this.db
         .update(matchEngineSessions)
-        .set({ revision: expectedRevision + 1, replay, state })
+        .set({
+          revision: expectedRevision + 1,
+          replay,
+          state,
+          ...(flow ? { flow } : {}),
+        })
         .where(
           and(
             eq(matchEngineSessions.matchId, matchId),
@@ -281,6 +288,99 @@ export class MatchRepository extends Repository {
         )
         .returning({ id: matchEngineSessions.matchId });
       if (!rows.length) throw new InvalidInputError('Stale match revision');
+    });
+  }
+
+  /**
+   * DEVELOPMENT TOOL ONLY (called by the dev-only force-result route, never by a production path): replaces the seed of a
+   * match that has had no ball. The match history is untouched; only the future balls fall differently.
+   */
+  devReseed(matchId: string, seed: string): Promise<void> {
+    return this.run(async () => {
+      assertUuid(matchId, 'matchId');
+      await this.db
+        .update(matchEngineSessions)
+        .set({
+          replay: sql`jsonb_set(${matchEngineSessions.replay}, '{input,rngSeed}', to_jsonb(${seed}::text))`,
+        })
+        .where(eq(matchEngineSessions.matchId, matchId));
+      await this.db
+        .update(matches)
+        .set({ rngSeed: seed })
+        .where(eq(matches.id, matchId));
+    });
+  }
+
+  // ---- career consequences (Module 11) -------------------------------------------------------
+
+  /**
+   * The idempotency gate for a finished match's career effects: inserts the (match, player) result row and
+   * returns true only for the call that created it. The caller applies stats, form, fatigue and rewards
+   * only when this returns true, in the same transaction.
+   */
+  recordCareerResult(input: {
+    readonly matchId: string;
+    readonly playerId: string;
+    readonly summary: Record<string, unknown>;
+  }): Promise<boolean> {
+    return this.run(async () => {
+      assertUuid(input.matchId, 'matchId');
+      assertUuid(input.playerId, 'playerId');
+      const rows = await this.db
+        .insert(matchCareerResults)
+        .values({
+          matchId: input.matchId,
+          playerId: input.playerId,
+          summary: input.summary,
+          gameBalanceVersion: GAME_BALANCE_VERSION,
+        })
+        .onConflictDoNothing()
+        .returning({ matchId: matchCareerResults.matchId });
+      return rows.length > 0;
+    });
+  }
+
+  /** Replace the stored summary of a result recorded by this transaction (filled in once the effects are known). */
+  updateCareerResult(
+    matchId: string,
+    playerId: string,
+    summary: Record<string, unknown>,
+  ): Promise<void> {
+    return this.run(async () => {
+      const rows = await this.db
+        .update(matchCareerResults)
+        .set({ summary })
+        .where(
+          and(
+            eq(matchCareerResults.matchId, matchId),
+            eq(matchCareerResults.playerId, playerId),
+          ),
+        )
+        .returning({ matchId: matchCareerResults.matchId });
+      if (!rows[0]) throw new RecordNotFoundError('Match career result');
+    });
+  }
+
+  getCareerResult(
+    matchId: string,
+    playerId: string,
+  ): Promise<{
+    readonly summary: Record<string, unknown>;
+    readonly processedAt: Date;
+  } | null> {
+    return this.run(async () => {
+      const rows = await this.db
+        .select()
+        .from(matchCareerResults)
+        .where(
+          and(
+            eq(matchCareerResults.matchId, matchId),
+            eq(matchCareerResults.playerId, playerId),
+          ),
+        );
+      return rows[0]
+        ? { summary: rows[0].summary, processedAt: rows[0].processedAt }
+        : null;
     });
   }
 

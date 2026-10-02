@@ -43,6 +43,7 @@
     "simulate:match": "turbo run build --filter=@the-cricketer/match-engine... --output-logs=errors-only && node --expose-gc infrastructure/scripts/simulate-match.mjs --mode=match",
     "simulate:matches": "turbo run build --filter=@the-cricketer/match-engine... --output-logs=errors-only && node --expose-gc infrastructure/scripts/simulate-match.mjs --mode=matches",
     "simulate:deliveries": "turbo run build --filter=@the-cricketer/match-engine... --output-logs=errors-only && node --expose-gc infrastructure/scripts/simulate-match.mjs --mode=deliveries",
+    "simulate:batting": "turbo run build --filter=@the-cricketer/match-engine... --output-logs=errors-only && node --expose-gc infrastructure/scripts/simulate-match.mjs --mode=batting",
     "simulate:balance": "turbo run build --filter=@the-cricketer/match-engine... --output-logs=errors-only && node --expose-gc infrastructure/scripts/simulate-match.mjs --mode=balance"
   },
   "devDependencies": {

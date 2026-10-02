@@ -1,5 +1,7 @@
 'use client';
 
+import { matchClient } from '../../match/api';
+import { StartMatch } from '../../match/components/start-match';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
@@ -420,6 +422,14 @@ export const EventDetailPage = ({ id }: { id: string }) => (
 
 // ---- match preparation (placeholder for the Match module) --------------------------------------
 
+/** Records that the preparation screen was seen (once per visit; a funnel event only, nothing is started). */
+function PreparationViewed() {
+  useEffect(() => {
+    matchClient.track('match_preparation_viewed');
+  }, []);
+  return null;
+}
+
 export const MatchPreparationPage = () => (
   <RequirePlayer>
     <DataPage
@@ -432,6 +442,7 @@ export const MatchPreparationPage = () => (
         const m = home.nextMatch;
         return (
           <div className="career-grid">
+            <PreparationViewed />
             <div className="career-col">
               <section className="panel next-match" aria-labelledby="prep-h">
                 <SectionHeader id="prep-h">
@@ -476,10 +487,21 @@ export const MatchPreparationPage = () => (
                   <EmptyState title="Your next fixture will appear here when the schedule is generated." />
                 )}
               </section>
-              <p className="notice" role="status">
-                Match gameplay will be enabled in the upcoming Match module.
-                Nothing here starts a match or changes your career.
-              </p>
+              {m ? (
+                <section className="panel" aria-labelledby="start-h">
+                  <SectionHeader id="start-h">Take the field</SectionHeader>
+                  <p>
+                    {m.format.name} at {m.venue.name}. Next come the team sheets
+                    and the toss. Your Cricketer joins the side with your latest
+                    skills, equipment and fatigue; training you do later never
+                    changes a match already started.
+                  </p>
+                  <StartMatch
+                    fixtureId={m.id}
+                    resume={m.status === 'in_progress'}
+                  />
+                </section>
+              ) : null}
             </div>
             <div className="career-col">
               <section className="panel" aria-labelledby="ready-h">

@@ -155,7 +155,7 @@ test.describe('Career Home', () => {
     ).toHaveAttribute('aria-current', 'page');
   });
 
-  test('prepare match opens an honest placeholder, never a fake result', async ({
+  test('prepare match opens the preparation screen; a match only starts when you press Start', async ({
     page,
   }) => {
     await createCricketer(page);
@@ -164,14 +164,17 @@ test.describe('Career Home', () => {
     await expect(page).toHaveURL(/\/match\/preparation$/);
     await expect(page.getByText('Metro Stallions').first()).toBeVisible();
     await expect(
-      page.getByText(
-        /Match gameplay will be enabled in the upcoming Match module/,
-      ),
+      page.getByText(/Next come the team sheets and the toss/),
     ).toBeVisible();
     await expect(page.getByText('Equipped gear')).toBeVisible();
-    await expect(page.getByRole('button', { name: /start|play/i })).toHaveCount(
-      0,
+    // opening the screen starts nothing: the fixture is still scheduled and there is a Start button
+    await expect(page.getByTestId('start-match')).toHaveText(
+      'CONTINUE TO TEAM SHEETS',
     );
+    expect(
+      (await apiHome(page)).nextMatch?.status,
+      'opening the preparation screen must not start a match',
+    ).toBe('scheduled');
     await page.goto('/play');
     await expect(page).toHaveURL(/\/match\/preparation$/);
   });

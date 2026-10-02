@@ -2,38 +2,22 @@ import {
   DELIVERIES,
   ENGINE_BALANCE as B,
   BOWLING_STYLE_WEIGHTS,
+  PITCH_LINES,
+  PITCH_LENGTHS,
+  classifyLine,
+  classifyLength,
 } from '@the-cricketer/game-core';
-import type {
-  RandomSource,
-  PitchDefinition,
-  DeliveryLine,
-  DeliveryLength,
-} from '@the-cricketer/game-core';
+import type { RandomSource, PitchDefinition } from '@the-cricketer/game-core';
 import type {
   MatchPlayerSnapshot,
   DeliveryIntent,
   ResolvedDelivery,
 } from '../state/types';
 import { clamp } from '../modifiers/effective';
-export const LINES: readonly DeliveryLine[] = [
-  'wide_off',
-  'outside_off',
-  'off_stump',
-  'middle',
-  'leg',
-  'wide_leg',
-];
-export const LENGTHS: readonly DeliveryLength[] = [
-  'yorker',
-  'full',
-  'good',
-  'short',
-  'bouncer',
-];
-export const classifyLine = (x: number): DeliveryLine =>
-  LINES[B.lineEdges.filter((e) => x >= e).length]!;
-export const classifyLength = (y: number): DeliveryLength =>
-  LENGTHS[B.lengthEdges.filter((e) => y >= e).length]!;
+/** The geometry lives in game-core so presentation layers classify a target identically. */
+export const LINES = PITCH_LINES;
+export const LENGTHS = PITCH_LENGTHS;
+export { classifyLine, classifyLength };
 export function resolveDelivery(
   intent: DeliveryIntent,
   player: MatchPlayerSnapshot,
@@ -43,7 +27,9 @@ export function resolveDelivery(
   const def = DELIVERIES.find((d) => d.id === intent.variationId)!;
   const attrs = player.bowling;
   const weights = BOWLING_STYLE_WEIGHTS[player.bowlingStyle!];
-  const quality = clamp(
+  // -1..1; 0 (the default for AI/headless play and any intent without an input) changes nothing.
+  const input = (clamp(intent.executionInput ?? 0.5) - 0.5) * 2;
+  const baseQuality = clamp(
     (attrs.accuracy * B.execution.accuracy +
       attrs.control * B.execution.control +
       attrs.consistency * B.execution.consistency) /
@@ -54,8 +40,10 @@ export function resolveDelivery(
         B.execution.variationShare *
         def.difficulty,
   );
+  const quality = clamp(baseQuality + input * B.execution.inputQuality);
   const radius =
     B.execution.error *
+    (1 - input * B.execution.inputRadius) *
     (1 - attrs.accuracy / 100) *
     (1 - attrs.control / 200) *
     (1 + def.controlPenalty) *

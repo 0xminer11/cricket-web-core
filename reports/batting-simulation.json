@@ -1,0 +1,299 @@
+{
+  "count": 4000,
+  "bySkill": {
+    "beginner": {
+      "contact": 96.4,
+      "goodOrBetter": 2.7,
+      "miss": 0,
+      "edge": 0,
+      "dot": 48.43,
+      "boundary": 4.55,
+      "wicket": 3.23,
+      "runsPerBall": 0.763
+    },
+    "average": {
+      "contact": 96.4,
+      "goodOrBetter": 72.68,
+      "miss": 0,
+      "edge": 0,
+      "dot": 40.83,
+      "boundary": 11.43,
+      "wicket": 1.48,
+      "runsPerBall": 1.13
+    },
+    "strong": {
+      "contact": 96.4,
+      "goodOrBetter": 83.85,
+      "miss": 0,
+      "edge": 0,
+      "dot": 39.25,
+      "boundary": 13.88,
+      "wicket": 1.2,
+      "runsPerBall": 1.238
+    },
+    "elite": {
+      "contact": 96.4,
+      "goodOrBetter": 90.93,
+      "miss": 0,
+      "edge": 0,
+      "dot": 35.83,
+      "boundary": 17.1,
+      "wicket": 0.88,
+      "runsPerBall": 1.419
+    }
+  },
+  "byTiming": {
+    "perfect": {
+      "contact": 96.4,
+      "goodOrBetter": 84.08,
+      "miss": 0,
+      "edge": 0,
+      "dot": 39.75,
+      "boundary": 12.25,
+      "wicket": 1.18,
+      "runsPerBall": 1.178
+    },
+    "advanced": {
+      "contact": 96.4,
+      "goodOrBetter": 83.53,
+      "miss": 0,
+      "edge": 0,
+      "dot": 39.8,
+      "boundary": 12.2,
+      "wicket": 1.2,
+      "runsPerBall": 1.176
+    },
+    "average": {
+      "contact": 96.4,
+      "goodOrBetter": 72.68,
+      "miss": 0,
+      "edge": 0,
+      "dot": 40.83,
+      "boundary": 11.43,
+      "wicket": 1.48,
+      "runsPerBall": 1.13
+    },
+    "rookie": {
+      "contact": 96.4,
+      "goodOrBetter": 45.98,
+      "miss": 0,
+      "edge": 0,
+      "dot": 43.6,
+      "boundary": 9.5,
+      "wicket": 2.13,
+      "runsPerBall": 1.01
+    }
+  },
+  "byShotChoice": {
+    "appropriate": {
+      "contact": 96.4,
+      "goodOrBetter": 72.68,
+      "miss": 0,
+      "edge": 0,
+      "dot": 40.83,
+      "boundary": 11.43,
+      "wicket": 1.48,
+      "runsPerBall": 1.13
+    },
+    "random": {
+      "contact": 96.4,
+      "goodOrBetter": 20.2,
+      "miss": 0,
+      "edge": 0.23,
+      "dot": 34.1,
+      "boundary": 17.65,
+      "wicket": 7.28,
+      "runsPerBall": 1.345
+    },
+    "poor": {
+      "contact": 96.4,
+      "goodOrBetter": 0,
+      "miss": 0,
+      "edge": 1.38,
+      "dot": 46.55,
+      "boundary": 5.28,
+      "wicket": 11.63,
+      "runsPerBall": 0.684
+    },
+    "defend": {
+      "contact": 96.4,
+      "goodOrBetter": 24.25,
+      "miss": 0,
+      "edge": 0.2,
+      "dot": 57.23,
+      "boundary": 0.13,
+      "wicket": 1.4,
+      "runsPerBall": 0.512
+    },
+    "lofted": {
+      "contact": 96.4,
+      "goodOrBetter": 24.25,
+      "miss": 0,
+      "edge": 0.2,
+      "dot": 23.83,
+      "boundary": 33.55,
+      "wicket": 8.88,
+      "runsPerBall": 1.974
+    },
+    "coverDrive": {
+      "contact": 96.4,
+      "goodOrBetter": 34.2,
+      "miss": 0,
+      "edge": 0.1,
+      "dot": 29.23,
+      "boundary": 20,
+      "wicket": 5.6,
+      "runsPerBall": 1.532
+    },
+    "pull": {
+      "contact": 96.4,
+      "goodOrBetter": 18.98,
+      "miss": 0,
+      "edge": 0,
+      "dot": 28.58,
+      "boundary": 19.63,
+      "wicket": 6.58,
+      "runsPerBall": 1.512
+    }
+  },
+  "byPitchPace": {
+    "green": {
+      "contact": 96.4,
+      "goodOrBetter": 72.33,
+      "miss": 0,
+      "edge": 0,
+      "dot": 40.85,
+      "boundary": 11.4,
+      "wicket": 1.48,
+      "runsPerBall": 1.128
+    },
+    "hard": {
+      "contact": 96.4,
+      "goodOrBetter": 72.68,
+      "miss": 0,
+      "edge": 0,
+      "dot": 40.83,
+      "boundary": 11.43,
+      "wicket": 1.48,
+      "runsPerBall": 1.13
+    },
+    "dry": {
+      "contact": 96.4,
+      "goodOrBetter": 73.05,
+      "miss": 0,
+      "edge": 0,
+      "dot": 40.75,
+      "boundary": 11.48,
+      "wicket": 1.48,
+      "runsPerBall": 1.133
+    }
+  },
+  "byPitchSpin": {
+    "green": {
+      "contact": 96.4,
+      "goodOrBetter": 84.33,
+      "miss": 0,
+      "edge": 0,
+      "dot": 44.58,
+      "boundary": 6.65,
+      "wicket": 1.2,
+      "runsPerBall": 0.92
+    },
+    "hard": {
+      "contact": 96.4,
+      "goodOrBetter": 84.48,
+      "miss": 0,
+      "edge": 0,
+      "dot": 44.58,
+      "boundary": 6.65,
+      "wicket": 1.2,
+      "runsPerBall": 0.92
+    },
+    "dry": {
+      "contact": 96.4,
+      "goodOrBetter": 84.28,
+      "miss": 0,
+      "edge": 0,
+      "dot": 44.58,
+      "boundary": 6.6,
+      "wicket": 1.23,
+      "runsPerBall": 0.917
+    }
+  },
+  "byAssist": {
+    "off": {
+      "contact": 96.4,
+      "goodOrBetter": 45.98,
+      "miss": 0,
+      "edge": 0,
+      "dot": 43.6,
+      "boundary": 9.5,
+      "wicket": 2.13,
+      "runsPerBall": 1.01
+    },
+    "normal": {
+      "contact": 96.4,
+      "goodOrBetter": 52.55,
+      "miss": 0,
+      "edge": 0,
+      "dot": 42.78,
+      "boundary": 9.98,
+      "wicket": 1.98,
+      "runsPerBall": 1.041
+    },
+    "high": {
+      "contact": 96.4,
+      "goodOrBetter": 63.48,
+      "miss": 0,
+      "edge": 0,
+      "dot": 41.78,
+      "boundary": 10.83,
+      "wicket": 1.65,
+      "runsPerBall": 1.089
+    },
+    "auto": {
+      "contact": 96.4,
+      "goodOrBetter": 29.48,
+      "miss": 0,
+      "edge": 0,
+      "dot": 45.15,
+      "boundary": 7.43,
+      "wicket": 2.53,
+      "runsPerBall": 0.927
+    }
+  },
+  "beginnerGoodDecisions": {
+    "contact": 96.4,
+    "goodOrBetter": 2.7,
+    "miss": 0,
+    "edge": 0,
+    "dot": 48.43,
+    "boundary": 4.55,
+    "wicket": 3.23,
+    "runsPerBall": 0.763
+  },
+  "perfectTimingBadShot": {
+    "contact": 96.4,
+    "goodOrBetter": 0,
+    "miss": 0,
+    "edge": 0,
+    "dot": 46.58,
+    "boundary": 5.23,
+    "wicket": 11.5,
+    "runsPerBall": 0.684
+  },
+  "goodShotSlightlyBadTiming": {
+    "contact": 96.4,
+    "goodOrBetter": 45.98,
+    "miss": 0,
+    "edge": 0,
+    "dot": 43.6,
+    "boundary": 9.5,
+    "wicket": 2.13,
+    "runsPerBall": 1.01
+  },
+  "runtimeMs": 3733.73,
+  "heapDeltaBytes": 375192,
+  "gcMeasured": true,
+  "node": "v24.21.0"
+}

@@ -19,6 +19,19 @@ interface EventPayloads {
   };
   'match.started': { matchId: MatchId; versions: VersionStamp };
   'match.completed': { matchId: MatchId; versions: VersionStamp };
+  'match.toss_completed': {
+    matchId: MatchId;
+    winnerTeamId: string;
+    decision: 'bat' | 'bowl';
+  };
+  'player.match_stats_updated': { playerId: PlayerId; matchId: MatchId };
+  'player.rewards_granted': {
+    playerId: PlayerId;
+    matchId: MatchId;
+    coins: number;
+    playerXp: number;
+  };
+  'achievement.unlocked': { playerId: PlayerId; achievementId: string };
   'training.completed': {
     playerId: PlayerId;
     trainingId: TrainingId;

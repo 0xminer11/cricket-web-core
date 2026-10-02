@@ -169,6 +169,10 @@ export function validateAction(
       finiteRange(d.target.x, 0, 1) && finiteRange(d.target.y, 0, 1),
       'Invalid target',
     );
+  assert(
+    d.executionInput === undefined || finiteRange(d.executionInput, 0, 1),
+    'Invalid execution input',
+  );
   const s = action.battingIntent;
   assert(
     SHOTS.some((v) => v.id === s.shotId),
@@ -196,7 +200,7 @@ export function validateAction(
   );
   assert(
     Object.keys(d).every((k) =>
-      ['variationId', 'line', 'length', 'target'].includes(k),
+      ['variationId', 'line', 'length', 'target', 'executionInput'].includes(k),
     ) &&
       Object.keys(s).every((k) =>
         ['shotId', 'timingInput', 'directionInput', 'aggression'].includes(k),

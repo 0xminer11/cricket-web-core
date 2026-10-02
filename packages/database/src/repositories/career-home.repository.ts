@@ -34,6 +34,7 @@ export interface FixtureView {
   readonly homeTeam: TeamRecord;
   readonly awayTeam: TeamRecord;
   readonly match: {
+    readonly id: string;
     readonly status: MatchStatus;
     readonly resultType: MatchResultType | null;
     readonly winnerTeamId: string | null;
@@ -110,6 +111,7 @@ export class CareerHomeRepository extends Repository {
           fixture: fixtures,
           home,
           away,
+          matchId: matches.id,
           matchStatus: matches.status,
           resultType: matches.resultType,
           winnerTeamId: matches.winnerTeamId,
@@ -152,6 +154,7 @@ export class CareerHomeRepository extends Repository {
         awayTeam: toTeam(r.away),
         match: r.matchStatus
           ? {
+              id: r.matchId!,
               status: r.matchStatus,
               resultType: r.resultType,
               winnerTeamId: r.winnerTeamId,

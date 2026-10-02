@@ -80,5 +80,6 @@ export function toFixtureSummary(
     round: fixture.round,
     season: fixture.seasonNumber,
     result,
+    matchId: match?.id ?? null,
   };
 }

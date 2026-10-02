@@ -5,6 +5,7 @@ import {
   createTestTeamSnapshot,
   simulateMatch,
   simulateDeliveries,
+  simulateHumanBatting,
   legalBallsToOvers,
 } from '../../packages/match-engine/dist/index.js';
 const args = Object.fromEntries(
@@ -56,6 +57,91 @@ if (mode === 'deliveries') {
     chaseWins: chased,
     ties,
     superOvers,
+  };
+} else if (mode === 'batting') {
+  // Module 10: a simulated HUMAN batter (their own timing and shot choice) against the AI bowler
+  const players = (bat, bowl, style = 'right_arm_fast') => {
+    const batter = createTestTeamSnapshot('bat', bat).players[0];
+    const bowler = createTestTeamSnapshot('bowl', bowl).players[0];
+    bowler.bowlingStyle = style;
+    return { batter, bowler };
+  };
+  const run = ({
+    bat = 55,
+    bowl = 55,
+    pitch = 'hard',
+    style,
+    timing = 'average',
+    shots = 'appropriate',
+    assist = 'off',
+    fixed,
+  }) =>
+    simulateHumanBatting({
+      count,
+      ...players(bat, bowl, style),
+      pitchId: `pitch.${pitch}`,
+      seed: args.seed ?? 'module10-report',
+      timing,
+      shots: fixed ? { fixed } : shots,
+      assist,
+    });
+  const row = (r) => ({
+    contact: r.contactPercent,
+    goodOrBetter: r.goodOrBetterPercent,
+    miss: r.percentages.miss ?? 0,
+    edge: r.percentages.edge ?? 0,
+    dot: r.dotPercent,
+    boundary: r.boundaryPercent,
+    wicket: r.wicketPercent,
+    runsPerBall: r.runsPerBall,
+  });
+  const table = (cases) =>
+    Object.fromEntries(Object.entries(cases).map(([k, v]) => [k, row(run(v))]));
+  report = {
+    count,
+    bySkill: table({
+      beginner: { bat: 30 },
+      average: { bat: 55 },
+      strong: { bat: 75 },
+      elite: { bat: 90 },
+    }),
+    byTiming: table({
+      perfect: { timing: 'perfect' },
+      advanced: { timing: 'advanced' },
+      average: { timing: 'average' },
+      rookie: { timing: 'rookie' },
+    }),
+    byShotChoice: table({
+      appropriate: { shots: 'appropriate' },
+      random: { shots: 'random' },
+      poor: { shots: 'poor' },
+      defend: { fixed: 'shot.forward_defensive' },
+      lofted: { fixed: 'shot.lofted_straight' },
+      coverDrive: { fixed: 'shot.cover_drive' },
+      pull: { fixed: 'shot.pull' },
+    }),
+    byPitchPace: table({
+      green: { pitch: 'green' },
+      hard: { pitch: 'hard' },
+      dry: { pitch: 'dry' },
+    }),
+    byPitchSpin: Object.fromEntries(
+      ['green', 'hard', 'dry'].map((p) => [
+        p,
+        row(run({ pitch: p, style: 'off_spin' })),
+      ]),
+    ),
+    byAssist: table({
+      off: { assist: 'off', timing: 'rookie' },
+      normal: { assist: 'normal', timing: 'rookie' },
+      high: { assist: 'high', timing: 'rookie' },
+      auto: { assist: 'auto', timing: 'rookie' },
+    }),
+    beginnerGoodDecisions: row(run({ bat: 30, timing: 'average' })),
+    perfectTimingBadShot: row(run({ timing: 'perfect', shots: 'poor' })),
+    goodShotSlightlyBadTiming: row(
+      run({ timing: 'rookie', shots: 'appropriate' }),
+    ),
   };
 } else if (mode === 'balance') {
   const matchup = (

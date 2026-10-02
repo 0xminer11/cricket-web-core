@@ -179,7 +179,7 @@ describe('database package (no database required)', () => {
     const exported = Object.keys(schema).filter(
       (k) => !k.endsWith('Constants'),
     );
-    expect(exported.length).toBe(35); // Includes Module 8 versioned engine sessions alongside normalized match tables.
+    expect(exported.length).toBe(36); // Includes Module 8 versioned engine sessions and Module 11's per-player match results.
     for (const forbidden of [
       'shots',
       'deliveries',

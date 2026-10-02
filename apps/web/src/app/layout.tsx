@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <AppNav />
           <main id="main">{children}</main>
         </AuthProvider>
-        <footer>Module 7 Training · Development preview</footer>
+        <footer>Module 9 Bowling · Development preview</footer>
       </body>
     </html>
   );

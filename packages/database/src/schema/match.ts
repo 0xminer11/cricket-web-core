@@ -438,8 +438,41 @@ export const matchEngineSessions = pgTable(
     participantMap: jsonb('participant_map')
       .$type<Record<string, string>>()
       .notNull(),
+    /**
+     * Module 11 match flow that is not part of the engine's own state: the toss before the engine
+     * starts (who called, the call, the coin, the winner, who decided) and the lineup the player
+     * was shown. `{}` for a match started before the toss existed (its toss is in the replay).
+     */
+    flow: jsonb('flow').$type<Record<string, unknown>>().notNull().default({}),
   },
   (t) => [
     check('match_engine_sessions_revision_check', nonNegative(t.revision)),
+  ],
+);
+
+/**
+ * One row per (match, human player) once the match's career consequences have been applied. The INSERT
+ * is the idempotency gate for stats, form, fatigue, rewards and level-ups: the completion service
+ * inserts it first (ON CONFLICT DO NOTHING) inside its transaction and applies everything only if the
+ * row was created. `summary` is exactly what was applied and what the result screen shows, so a
+ * refresh or a replay never recomputes (and so never changes) a result.
+ */
+export const matchCareerResults = pgTable(
+  'match_career_results',
+  {
+    matchId: uuid('match_id')
+      .notNull()
+      .references(() => matches.id, { onDelete: 'restrict' }),
+    playerId: uuid('player_id')
+      .notNull()
+      .references(() => playerProfiles.id, { onDelete: 'restrict' }),
+    summary: jsonb('summary').$type<Record<string, unknown>>().notNull(),
+    gameBalanceVersion: text('game_balance_version').notNull(),
+    processedAt: ts('processed_at').notNull().defaultNow(),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    unique('match_career_results_pk').on(t.matchId, t.playerId),
+    index('match_career_results_player_idx').on(t.playerId, t.processedAt),
   ],
 );

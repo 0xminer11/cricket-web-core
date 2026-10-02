@@ -5,6 +5,7 @@ import {
   DATA_SCHEMA_VERSION,
   ENGINE_BALANCE as B,
   DELIVERIES,
+  SHOTS,
 } from '@the-cricketer/game-core';
 import type { MatchFormat, PitchDefinition } from '@the-cricketer/game-core';
 import type {
@@ -18,6 +19,9 @@ import type {
   EngineCommand,
   MatchEvent,
   EngineInnings,
+  DeliveryIntent,
+  ResolvedDelivery,
+  MatchPlayerSnapshot,
 } from '../state/types';
 import { MatchRandom, RNG_ALGORITHM_VERSION } from '../rng/seeded';
 import {
@@ -221,6 +225,67 @@ export class HeadlessMatchEngine {
     this.commands.push({ type: 'bowler', playerId });
     this.emit('OVER_STARTED', { playerId });
   }
+  /** The bowler as he is for this delivery: fatigue builds with his workload this innings. */
+  private effectiveBowlerFor(
+    inning: EngineInnings,
+    bowler: MatchPlayerSnapshot,
+    variationId: string,
+  ): MatchPlayerSnapshot {
+    const workload = inning.bowling.find(
+      (b) => b.playerId === bowler.playerId,
+    )!.legalBalls;
+    return calculateEffectiveMatchAttributes({
+      ...bowler,
+      fatigue: clamp(
+        bowler.fatigue +
+          workload *
+            B.fatiguePerDelivery *
+            DELIVERIES.find((d) => d.id === variationId)!.staminaCost *
+            (1 - bowler.physical.stamina / 200),
+        0,
+        100,
+      ),
+    });
+  }
+
+  /**
+   * What the delivery WILL be, without resolving the ball: the same function, seed stream and bowler
+   * state `resolveBall` uses, so the preview a human batter reads before playing is exactly the
+   * delivery the engine then resolves. Read-only: no state, sequence or random draw is consumed.
+   */
+  previewDelivery(
+    expectedSequence: number,
+    intent: DeliveryIntent,
+  ): ResolvedDelivery {
+    assert(this.state.status === 'in_progress', 'Match is not accepting balls');
+    assert(
+      expectedSequence === this.state.sequence + 1,
+      'Stale/out-of-order action',
+    );
+    const inning = this.current();
+    assert(inning.currentBowlerId, 'Select bowler first');
+    const bowler = this.team(inning.bowlingTeamId).players.find(
+      (p) => p.playerId === inning.currentBowlerId,
+    )!;
+    validateAction(
+      {
+        actionId: 'preview',
+        expectedSequence,
+        deliveryIntent: intent,
+        battingIntent: { shotId: SHOTS[0]!.id },
+      },
+      bowler,
+    );
+    return resolveDelivery(
+      intent,
+      this.effectiveBowlerFor(inning, bowler, intent.variationId),
+      this.pitch,
+      new MatchRandom(
+        `${this.input.rngSeed}:ball:${expectedSequence}:delivery`,
+      ),
+    );
+  }
+
   resolveBall(action: BallAction): EngineBallResult {
     const prior = this.actions.get(action.actionId);
     if (prior) {
@@ -246,22 +311,11 @@ export class HeadlessMatchEngine {
     validateAction(action, bowler);
     const over = inning.overs.at(-1)!;
     assert(over.balls.length < 1000, 'Delivery safety limit exceeded');
-    const workload = inning.bowling.find(
-      (b) => b.playerId === bowler.playerId,
-    )!.legalBalls;
-    const effectiveBowler = calculateEffectiveMatchAttributes({
-      ...bowler,
-      fatigue: clamp(
-        bowler.fatigue +
-          workload *
-            B.fatiguePerDelivery *
-            DELIVERIES.find((d) => d.id === action.deliveryIntent.variationId)!
-              .staminaCost *
-            (1 - bowler.physical.stamina / 200),
-        0,
-        100,
-      ),
-    });
+    const effectiveBowler = this.effectiveBowlerFor(
+      inning,
+      bowler,
+      action.deliveryIntent.variationId,
+    );
     const effectiveBatter = calculateEffectiveMatchAttributes(batter);
     const seed = `${this.input.rngSeed}:ball:${action.expectedSequence}`;
     const delivery = resolveDelivery(
@@ -400,6 +454,19 @@ export class HeadlessMatchEngine {
   snapshot(): EngineMatchState {
     assert(this.state, 'Match not initialized');
     return clone(this.state);
+  }
+  /**
+   * Read-only view of the live state WITHOUT cloning it (the AI reads the state on every ball, and cloning a growing history each
+   * time would be wasteful). Callers must treat it as immutable; use `snapshot()` for anything that is kept or changed.
+   */
+  peek(): Readonly<EngineMatchState> {
+    assert(this.state, 'Match not initialized');
+    return this.state;
+  }
+  /** The format and pitch this match is being played under (a configured engine may differ from the defaults). */
+  conditions(): { readonly format: Readonly<MatchFormat>; readonly pitch: Readonly<PitchDefinition> } {
+    assert(this.state, 'Match not initialized');
+    return { format: this.format, pitch: this.pitch };
   }
   replay(): MatchReplay {
     return clone({

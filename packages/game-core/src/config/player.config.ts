@@ -132,3 +132,17 @@ export const ROLE_WEIGHTS: Readonly<
     'physical.fitness': 0.06,
   },
 };
+
+/** Player-facing role names (display only; the role id is the stable key). */
+export const ROLE_DISPLAY_NAMES: Readonly<Record<PlayerRole, string>> = {
+  opening_batter: 'Opener',
+  top_order_batter: 'Top Order',
+  middle_order_batter: 'Middle Order',
+  finisher: 'Finisher',
+  wicketkeeper_batter: 'Wicketkeeper',
+  batting_all_rounder: 'Batting All-Rounder',
+  bowling_all_rounder: 'Bowling All-Rounder',
+  fast_bowler: 'Fast Bowler',
+  swing_bowler: 'Swing Bowler',
+  spin_bowler: 'Spinner',
+};

@@ -1,18 +1,24 @@
 import { randomUUID } from 'node:crypto';
 import { isUuid } from '@the-cricketer/database';
-import type { Database, Repositories } from '@the-cricketer/database';
+import type { Database } from '@the-cricketer/database';
 import {
   GAME_BALANCE_VERSION,
   MATCH_ENGINE_VERSION,
+  MATCH_FORMATS,
+  battingSlot,
+  difficultyForTier,
+  AI_TUNING,
+  coinFromRoll,
   TEAMS,
   VENUE_BY_TEAM,
 } from '@the-cricketer/game-core';
 import {
   createMatchEngine,
+  createAiSnapshot,
   createTeamSnapshot,
   replayMatch,
+  MatchRandom,
   RNG_ALGORITHM_VERSION,
-  playerPerformances,
 } from '@the-cricketer/match-engine';
 import type {
   MatchReplay,
@@ -23,8 +29,29 @@ import type {
 import { AppError } from '@the-cricketer/server-kit';
 import type { PlayerScope } from '../player/equipment.service';
 import { MatchSnapshotService } from './match-snapshot.service';
+import { completeMatchIfFinished, persistBall } from './match-persistence';
 const missing = () =>
   new AppError('MATCH_NOT_FOUND', 'Match or fixture not found.', 404);
+
+/**
+ * Which AI player the human replaces: the first with the same role, else the first of the same family
+ * (batter, bowler, all-rounder), else the opener. Names and attributes of the others are untouched.
+ */
+function replacedIndex(
+  team: { players: { role: string }[] },
+  role: string,
+): number {
+  const family = (r: string) =>
+    ['fast_bowler', 'swing_bowler', 'spin_bowler'].includes(r)
+      ? 'bowler'
+      : r.endsWith('all_rounder')
+        ? 'all_rounder'
+        : 'batter';
+  const exact = team.players.findIndex((p) => p.role === role);
+  if (exact >= 0) return exact;
+  const same = team.players.findIndex((p) => family(p.role) === family(role));
+  return same >= 0 ? same : 0;
+}
 export class MatchService {
   constructor(private readonly database: Database) {}
   async start(scope: PlayerScope, fixtureId: string) {
@@ -79,9 +106,33 @@ export class MatchService {
         );
         const mine =
           teamA.teamId === dashboard.career.currentTeamId ? teamA : teamB;
-        const replaced = mine.players[0]!.playerId;
-        mine.players[0] = human;
-        mine.battingOrder[0] = human.playerId;
+        // the Cricketer takes the place of the AI player whose role is closest to theirs, so the side stays balanced
+        const index = replacedIndex(mine, human.role);
+        const replaced = mine.players[index]!.playerId;
+        mine.players[index] = human;
+        // two people on a team sheet never share a name: an AI player who happens to is given a middle initial
+        for (const team of [teamA, teamB])
+          for (const [i, p] of team.players.entries()) {
+            if (
+              p.playerId === human.playerId ||
+              p.displayName !== human.displayName
+            )
+              continue;
+            const [first, ...rest] = p.displayName.split(' ');
+            p.displayName =
+              `${first} ${String.fromCharCode(65 + ((i + 7) % 26))}. ${rest.join(' ')}`.trim();
+          }
+        // the Cricketer bats where their role says (openers open, finishers wait), never beyond the
+        // wickets the format allows, so they always get a turn
+        const maxWickets = MATCH_FORMATS.find(
+          (f) => f.id === fixture.matchFormatId,
+        )!.maxWickets;
+        mine.battingOrder = mine.battingOrder.filter((id) => id !== replaced);
+        mine.battingOrder.splice(
+          battingSlot(human.role, maxWickets),
+          0,
+          human.playerId,
+        );
         mine.bowlingOrder = mine.bowlingOrder.filter((id) => id !== replaced);
         if (human.bowlingStyle) mine.bowlingOrder.unshift(human.playerId);
         const pitchId =
@@ -97,6 +148,7 @@ export class MatchService {
           homeTeamId: teamA.teamId,
           awayTeamId: teamB.teamId,
           rngSeed: seed,
+          ai: createAiSnapshot(Object.fromEntries([teamA, teamB].map((team) => [team.teamId, team.teamId === dashboard.career.currentTeamId ? AI_TUNING.teammateDifficulty : difficultyForTier(dashboard.career.currentTier)]))),
           rngAlgorithmVersion: RNG_ALGORITHM_VERSION,
           participants: [teamA, teamB].flatMap((t) =>
             t.players.map((p) => ({
@@ -122,25 +174,35 @@ export class MatchService {
                 r.teamId === t.teamId &&
                 r.battingPosition === t.battingOrder.indexOf(p.playerId) + 1,
             )!.id;
+        // The match is created and snapshotted here; the toss happens next, from the team-sheet screen
+        // (MatchFlowService), so the engine is created but NOT started: the first innings does not exist yet.
         const engine = createMatchEngine();
-        engine.startMatch({
+        engine.createMatch({
           matchId: summary.match.id,
           formatId: fixture.matchFormatId,
           pitchId,
           teamA,
           teamB,
           rngSeed: seed,
+          ai: createAiSnapshot(Object.fromEntries([teamA, teamB].map((team) => [team.teamId, team.teamId === dashboard.career.currentTeamId ? AI_TUNING.teammateDifficulty : difficultyForTier(dashboard.career.currentTier)]))),
           balanceVersion: GAME_BALANCE_VERSION,
           matchEngineVersion: MATCH_ENGINE_VERSION,
         });
+        engine.markReady();
         await repos.matches.markReady(summary.match.id);
-        await repos.matches.startMatch(summary.match.id);
         await repos.teams.transitionFixture(fixtureId, 'in_progress');
         await repos.matches.createEngineSession({
           matchId: summary.match.id,
           replay: engine.replay(),
           state: engine.snapshot(),
           participantMap,
+          // the away side calls; the coin and an AI caller's call come from the seed and are fixed from now on
+          flow: {
+            toss: {
+              callerTeamId: teamB.teamId,
+              aiCall: coinFromRoll(new MatchRandom(`${seed}:toss:call`).next()),
+            },
+          },
         });
         return { matchId: summary.match.id };
       },
@@ -198,33 +260,14 @@ export class MatchService {
         }
         const ball = engine.resolveBall(action);
         state = engine.snapshot();
-        await this.persistBall(repos, state, ball, session.participantMap);
-        if (state.status === 'completed') {
-          const result = state.result!;
-          await repos.matches.completeMatch({
-            matchId,
-            resultType: result.type,
-            ...(result.winnerTeamId
-              ? { winnerTeamId: result.winnerTeamId }
-              : {}),
-            resultSummary:
-              result.type === 'tie'
-                ? 'Match tied'
-                : `Won by ${result.margin} ${result.marginType}`,
-          });
-          await repos.matches.setPerformanceRatings(
-            matchId,
-            playerPerformances(state, replay.input).map((p) => ({
-              participantId: session.participantMap[p.playerId]!,
-              rating: p.rating,
-            })),
-          );
-          if (summary.match.fixtureId)
-            await repos.teams.transitionFixture(
-              summary.match.fixtureId,
-              'completed',
-            );
-        }
+        await persistBall(repos, state, ball, session.participantMap);
+        await completeMatchIfFinished(
+          repos,
+          state,
+          replay.input,
+          session.participantMap,
+          summary.match.fixtureId,
+        );
         await repos.matches.saveEngineSession(
           matchId,
           session.revision,
@@ -235,60 +278,5 @@ export class MatchService {
       },
       { operation: 'match.ball' },
     );
-  }
-  private async persistBall(
-    repos: Repositories,
-    state: EngineMatchState,
-    ball: EngineBallResult,
-    participants: Record<string, string>,
-  ) {
-    const domain = state.innings[ball.inningsNumber - 1]!;
-    const stored = await repos.matches.getMatchSummary(state.matchId);
-    let innings = stored.innings.find(
-      (i) => i.inningsNumber === ball.inningsNumber,
-    );
-    innings ??= await repos.matches.createInnings({
-      matchId: state.matchId,
-      inningsNumber: ball.inningsNumber,
-      battingTeamId: domain.battingTeamId,
-      bowlingTeamId: domain.bowlingTeamId,
-      isSuperOver: domain.isSuperOver,
-      ...(domain.target !== null ? { target: domain.target } : {}),
-    });
-    const overs = await repos.matches.listOvers(innings.id);
-    const over =
-      overs.find((o) => o.overNumber === ball.overNumber) ??
-      (await repos.matches.startOver({
-        inningsId: innings.id,
-        overNumber: ball.overNumber,
-        bowlerParticipantId: participants[ball.bowlerId]!,
-      }));
-    await repos.matches.recordBall({
-      overId: over.id,
-      sequenceNumber: ball.inningsSequence,
-      ballInOver: ball.ballInOver,
-      strikerParticipantId: participants[ball.strikerId]!,
-      nonStrikerParticipantId: participants[ball.nonStrikerId]!,
-      bowlerParticipantId: participants[ball.bowlerId]!,
-      deliveryDefinitionId: ball.delivery.deliveryDefinitionId,
-      shotDefinitionId: ball.shot.shotId,
-      line: ball.delivery.actualLine,
-      length: ball.delivery.actualLength,
-      runsOffBat: ball.runsOffBat,
-      extras: ball.extras,
-      ...(ball.extraType ? { extraType: ball.extraType } : {}),
-      ...(ball.wicketType
-        ? {
-            wicketType: ball.wicketType,
-            dismissedParticipantId: participants[ball.strikerId]!,
-          }
-        : {}),
-      legalDelivery: ball.legalDelivery,
-      contactQuality: ball.shot.contactQuality,
-      ballSpeed: ball.delivery.speed * 3.6,
-    });
-    if (domain.overs[ball.overNumber - 1]!.completed || domain.completed)
-      await repos.matches.completeOver(over.id);
-    if (domain.completed) await repos.matches.completeInnings(innings.id);
   }
 }

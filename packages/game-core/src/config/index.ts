@@ -16,3 +16,4 @@ export * from './countries';
 export * from './starter-player.config';
 
 export * from './engine.config';
+export * from './batting-input.config';

@@ -1,5 +1,7 @@
 import {
   SHOTS,
+  shotSuitability,
+  fieldRegion,
   CONTACT_WEIGHTS as W,
   CONTACT_QUALITY_BANDS,
   ENGINE_BALANCE as B,
@@ -7,30 +9,16 @@ import {
 import type {
   RandomSource,
   PitchDefinition,
-  ShotDefinition,
   ContactQuality,
-  DeliveryLine,
-  DeliveryLength,
 } from '@the-cricketer/game-core';
 import type {
   MatchPlayerSnapshot,
   ShotIntent,
   ResolvedDelivery,
   ResolvedShot,
-  FieldRegion,
 } from '../state/types';
 import { clamp } from '../modifiers/effective';
-export function shotSuitability(
-  shot: ShotDefinition,
-  line: DeliveryLine,
-  length: DeliveryLength,
-): number {
-  return (
-    (Number(shot.idealLines.includes(line)) +
-      Number(shot.idealLengths.includes(length))) /
-    2
-  );
-}
+export { shotSuitability };
 export function contactQuality(score: number): ContactQuality {
   return (
     (Object.keys(CONTACT_QUALITY_BANDS) as ContactQuality[]).find(
@@ -38,16 +26,7 @@ export function contactQuality(score: number): ContactQuality {
     ) ?? 'miss'
   );
 }
-export function fieldRegion(degrees: number): FieldRegion {
-  if (Math.abs(degrees) <= 18) return 'straight';
-  if (degrees > 0)
-    return degrees < 60 ? 'cover' : degrees < 90 ? 'point' : 'third_man';
-  return degrees > -60
-    ? 'mid_wicket'
-    : degrees > -90
-      ? 'square_leg'
-      : 'fine_leg';
-}
+export { fieldRegion };
 export function resolveShot(
   intent: ShotIntent,
   player: MatchPlayerSnapshot,

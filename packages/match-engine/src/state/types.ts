@@ -29,6 +29,18 @@ export interface MatchTeamSnapshot {
   players: MatchPlayerSnapshot[];
   battingOrder: string[];
   bowlingOrder: string[];
+  /** Module 0 team style (0..100): how attacking the side is. A modest input to the AI's risk appetite; never to an outcome. */
+  aggression?: number;
+}
+
+/**
+ * Module 12: which AI decides for each side, recorded with the match. `profiles` maps a team id to a difficulty id
+ * (rookie, amateur, pro, elite). The versions name the decision algorithm and its tuning when the match was created.
+ */
+export interface MatchAiSnapshot {
+  engineVersion: string;
+  configVersion: string;
+  profiles: Record<string, string>;
 }
 export interface TossDecision {
   winnerTeamId: string;
@@ -44,6 +56,8 @@ export interface CreateMatchInput {
   rngSeed: string;
   balanceVersion: string;
   matchEngineVersion: string;
+  /** Absent on matches created before Module 12 (the default difficulty then applies). */
+  ai?: MatchAiSnapshot;
 }
 export interface EngineConfig {
   formats?: readonly MatchFormat[];
@@ -60,6 +74,11 @@ export interface DeliveryIntent {
   line: DeliveryLine;
   length: DeliveryLength;
   target?: NormalizedPitchTarget;
+  /**
+   * Optional human bowling-execution timing, 0..1 (1 = perfect, 0.5 = neutral/absent). Skill-based but
+   * bounded: it scales the error radius and nudges quality, it never replaces Accuracy or Control.
+   */
+  executionInput?: number;
 }
 /** timingInput: -1 very early, 0 ideal, +1 very late. directionInput: -1..1 within shot arc. */
 export interface ShotIntent {

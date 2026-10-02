@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import Link from 'next/link';
 import {
   EmptyState,
   ProgressBar,
@@ -193,13 +194,23 @@ export function NextMatchCard({ home }: { home: Home }) {
         </ul>
       ) : null}
       <div className="actions" style={{ marginTop: 'var(--space-3)' }}>
-        <TrackedLink
-          href="/match/preparation"
-          event="next_match_opened"
-          className="button button-primary button-large"
-        >
-          PREPARE MATCH
-        </TrackedLink>
+        {m.matchId && m.status === 'in_progress' ? (
+          <TrackedLink
+            href={`/match/${m.matchId}`}
+            event="next_match_opened"
+            className="button button-primary button-large"
+          >
+            RESUME MATCH
+          </TrackedLink>
+        ) : (
+          <TrackedLink
+            href="/match/preparation"
+            event="next_match_opened"
+            className="button button-primary button-large"
+          >
+            PREPARE MATCH
+          </TrackedLink>
+        )}
         <TrackedLink href="/career/fixtures" event="fixture_list_opened">
           View fixtures
         </TrackedLink>
@@ -472,7 +483,9 @@ export function RecentMatches({ matches }: { matches: Home['recentMatches'] }) {
                     : undefined
               }
             >
-              {resultLabel(m.result)} vs {m.opponentName}
+              <Link href={`/match/${m.matchId}/result`}>
+                {resultLabel(m.result)} vs {m.opponentName}
+              </Link>
             </strong>
             <small>
               {m.formatName}
